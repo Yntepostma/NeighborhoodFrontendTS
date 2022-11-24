@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+import { User } from "../store/user/slice";
+import { useAppDispatch } from "../store/hooks";
+import { signUp } from "../store/user/thunk";
 
 export const SignupPage = () => {
+  const dispatch = useAppDispatch();
+
   const [userName, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -8,9 +14,22 @@ export const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [profilePic, setProfilePic] = useState("");
 
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    const newUser: User = {
+      userName,
+      firstName,
+      lastName,
+      emailAddress,
+      password,
+      profilePicture: profilePic,
+    };
+    dispatch(signUp(newUser));
+  };
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="user name"
@@ -47,8 +66,14 @@ export const SignupPage = () => {
           value={profilePic}
           onChange={(e) => setProfilePic(e.target.value)}
         />
-        <button type="submit"></button>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
 };
+
+const Container = styled.div`
+  display: "flex";
+  flex-direction: "column";
+  margin: 15%;
+`;

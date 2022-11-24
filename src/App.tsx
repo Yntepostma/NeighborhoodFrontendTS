@@ -1,11 +1,13 @@
+import { Sign } from "crypto";
 import React from "react";
 import "./App.css";
-import { HomePage } from "./Pages";
+import { HomePage, SignupPage } from "./Pages";
 
 function App() {
   return (
     <div className="App">
-      <HomePage />
+      <SignupPage />
+      {/* <HomePage /> */}
     </div>
   );
 }
