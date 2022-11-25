@@ -15,11 +15,11 @@ export const SignupPage = () => {
 
   const token = useSelector(selectToken);
 
-  useEffect(() => {
-    if (token !== null) {
-      navigate("/");
-    }
-  }, [token, navigate]);
+  //   useEffect(() => {
+  //     if (token !== null) {
+  //       navigate("/");
+  //     }
+  //   }, [token, navigate]);
 
   const [userName, setUserName] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -47,7 +47,6 @@ export const SignupPage = () => {
   return (
     <div style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}>
       <div className="bg-grey-lighter min-h-screen flex flex-col">
-        <h2>Welcome to NeighborHooD</h2>
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-20 ">
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
             <h3 className="mb-8 text-3xl text-center">Sign up</h3>
@@ -76,17 +75,17 @@ export const SignupPage = () => {
               />
               <input
                 className="block border border-grey-light w-full p-2 rounded mb-4"
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <input
-                className="block border border-grey-light w-full p-2 rounded mb-4"
                 type="text"
                 placeholder="email address"
                 value={emailAddress}
                 onChange={(e) => setEmailAddress(e.target.value)}
+              />
+              <input
+                className="block border border-grey-light w-full p-2 rounded mb-4"
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
 
               <button

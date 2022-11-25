@@ -6,6 +6,7 @@ import { HomePage, SignupPage, LoginPage } from "./Pages";
 import { useEffect } from "react";
 import { useAppDispatch } from "./store/hooks";
 import { Routes, Route } from "react-router-dom";
+import { NavBar } from "./Components";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ function App() {
 
   return (
     <div className="App">
+      <NavBar></NavBar>
       <Routes>
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
