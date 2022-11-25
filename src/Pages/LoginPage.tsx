@@ -22,8 +22,8 @@ export const LoginPage = () => {
   //     }
   //   }, [token, navigate]);
 
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
+  const [emailAddress, setEmailAddress] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

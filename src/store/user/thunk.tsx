@@ -5,6 +5,16 @@ import { apiUrl } from "../../config";
 import { selectToken } from "./selectors";
 import { loginSuccess, tokenStillValid } from "./slice";
 import { Login } from "../../Pages/LoginPage";
+import { geoKey } from "../../config";
+
+export const getPostcode =
+  (lat: number, lon: number) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const response = await axios.get(
+      `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}6&lon=${lon}8&type=postcode&format=json&apiKey=${geoKey}`
+    );
+    console.log(response);
+  };
 
 export const signUp =
   (user: User) => async (dispatch: AppDispatch, getState: () => RootState) => {
@@ -33,6 +43,7 @@ export const login =
         emailAddress,
         password,
       });
+      console.log("response in thunk", response);
     } catch (error: any) {
       console.log(error.message);
     }
