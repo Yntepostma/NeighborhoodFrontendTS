@@ -13,9 +13,7 @@ export type User = {
   profilePicture?: string;
 };
 
-type Token = {
-  token: string;
-};
+type Token = string | null;
 
 type State = {
   user: User;
@@ -32,14 +30,23 @@ const initialState: State = {
     phoneNumber: "",
     profilePicture: "",
   },
-  token: { token: "" },
+  token: localStorage.getItem("token"),
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    loginSuccess: (state, action) => {
+      localStorage.setItem("token", action.payload.token);
+      state.token = action.payload.token;
+      state.user = action.payload.user;
+    },
+    tokenStillValid: (state, action) => {
+      state.user = action.payload.user;
+    },
+  },
 });
 
-export const {} = userSlice.actions;
+export const { loginSuccess, tokenStillValid } = userSlice.actions;
 export default userSlice.reducer;
