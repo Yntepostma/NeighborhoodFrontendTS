@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { getPostcode } from "../store/user/thunk";
+import { getPostcode, getMap } from "../store/user/thunk";
 import { useAppDispatch } from "../store/hooks";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import image from "./images/background.jpg";
+import { geoKey } from "../config";
 
 export const SelectNeighborhood = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +26,27 @@ export const SelectNeighborhood = () => {
 
   useEffect(() => {
     if (lat !== 0) dispatch(getPostcode(lat, lon));
-  }, [lat]);
+  }, [dispatch, lon, lat]);
 
-  return <div></div>;
+  useEffect(() => {
+    if (lat !== 0) dispatch(getMap(lat, lon));
+  }, [dispatch, lat, lon]);
+
+  return (
+    <div>
+      <div>
+        <h2>Title</h2>
+        <p>Your current location is: </p>
+        {!lat ? (
+          "Loading"
+        ) : (
+          <img
+            className="rounded"
+            src={`https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=600&height=400&center=lonlat:${lon},${lat}&zoom=14&apiKey=${geoKey}`}
+            alt="map"
+          />
+        )}
+      </div>
+    </div>
+  );
 };

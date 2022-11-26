@@ -15,17 +15,17 @@ export const SignupPage = () => {
 
   const token = useSelector(selectToken);
 
-  //   useEffect(() => {
-  //     if (token !== null) {
-  //       navigate("/");
-  //     }
-  //   }, [token, navigate]);
+  useEffect(() => {
+    if (token !== null) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
-  const [userName, setUserName] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [emailAddress, setEmailAddress] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState<string>("");
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [emailAddress, setEmailAddress] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -49,7 +49,7 @@ export const SignupPage = () => {
       <div className="bg-grey-lighter min-h-screen flex flex-col">
         <div className="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2 mt-20 ">
           <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
-            <h3 className="mb-8 text-3xl text-center">Sign up</h3>
+            <h4 className="mb-8 text-3xl text-center">Sign up</h4>
 
             <form onSubmit={handleSubmit}>
               <input
@@ -89,7 +89,7 @@ export const SignupPage = () => {
               />
 
               <button
-                className="block border w-full text-center py-3 rounded bg-green-700 text-white hover:bg-green-dark focus:outline-none my-1"
+                className="block border w-full text-center py-3 rounded bg-green-700 text-white hover:bg-green-900 focus:outline-none my-1"
                 type="submit"
               >
                 Create Account

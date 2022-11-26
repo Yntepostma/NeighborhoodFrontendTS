@@ -63,7 +63,7 @@ export const LoginPage = () => {
                 />
 
                 <button
-                  className="block border w-full text-center py-3 rounded bg-green-700 text-white hover:bg-green-dark focus:outline-none my-1"
+                  className="block border w-full text-center py-3 rounded bg-green-700 text-white hover:bg-green-900 focus:outline-none my-1"
                   type="submit"
                 >
                   Log in

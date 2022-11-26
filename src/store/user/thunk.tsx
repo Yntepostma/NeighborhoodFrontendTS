@@ -16,6 +16,15 @@ export const getPostcode =
     console.log(response);
   };
 
+export const getMap =
+  (lat: number, lon: number) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const response = await axios.get(
+      `https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=600&height=400&center=lonlat:${lon},${lat}&zoom=14&apiKey=${geoKey}`
+    );
+    console.log(response);
+  };
+
 export const signUp =
   (user: User) => async (dispatch: AppDispatch, getState: () => RootState) => {
     const { userName, firstName, lastName, emailAddress, password } = user;
