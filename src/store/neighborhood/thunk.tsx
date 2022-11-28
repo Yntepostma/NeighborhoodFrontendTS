@@ -15,7 +15,7 @@ export const getNeighborhood =
   (postcode: string) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
     const response = await axios.get(`${apiUrl}/neighborhoods/${postcode}`);
-    const { council, area, id, neighborhood, postal } = response.data[0];
+    const { council, area, id, neighborhood, postal } = response.data;
     const neighborHood: Neighborhood = {
       council,
       area,

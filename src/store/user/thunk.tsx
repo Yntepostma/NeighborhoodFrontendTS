@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from "../index";
 import { User } from "./slice";
 import { apiUrl } from "../../config";
 import { selectToken } from "./selectors";
-import { loginSuccess, tokenStillValid } from "./slice";
+import { loginSuccess, tokenStillValid, setArea } from "./slice";
 import { Login } from "../../Pages/LoginPage";
 import { geoKey } from "../../config";
 
@@ -13,14 +13,21 @@ export const getPostcode =
     const response = await axios.get(
       `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}6&lon=${lon}8&type=postcode&format=json&apiKey=${geoKey}`
     );
-    console.log(response);
+    const postcode = response.data.results[0].postcode;
+    const responseArea = await axios.get(`${apiUrl}/neighborhoods/${postcode}`);
+    dispatch(setArea(responseArea.data));
   };
 
-export const getMap =
-  (lat: number, lon: number) =>
+export const addNeighborhood =
+  (postal: string) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
-    const response = await axios.get(
-      `https://maps.geoapify.com/v1/staticmap?style=osm-carto&width=600&height=400&center=lonlat:${lon},${lat}&zoom=14&apiKey=${geoKey}`
+    const token = selectToken(getState());
+    const response = await axios.post(
+      `${apiUrl}/neighborhoods`,
+      { postal },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
     );
     console.log(response);
   };
@@ -52,7 +59,7 @@ export const login =
         emailAddress,
         password,
       });
-      console.log("response in thunk", response);
+      dispatch(loginSuccess(response.data));
     } catch (error: any) {
       console.log(error.message);
     }

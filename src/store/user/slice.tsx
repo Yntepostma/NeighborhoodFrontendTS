@@ -14,10 +14,17 @@ export type User = {
 };
 
 type Token = string | null;
+type Neighborhood = {
+  postal: string;
+  neighborhood: string;
+  council: string;
+  area: string;
+};
 
 type State = {
   user: User;
   token: Token;
+  neighborhood: Neighborhood;
 };
 
 const initialState: State = {
@@ -31,6 +38,7 @@ const initialState: State = {
     profilePicture: "",
   },
   token: localStorage.getItem("token"),
+  neighborhood: { postal: "", council: "", neighborhood: "", area: "" },
 };
 
 export const userSlice = createSlice({
@@ -45,8 +53,12 @@ export const userSlice = createSlice({
     tokenStillValid: (state, action) => {
       state.user = action.payload.user;
     },
+    setArea: (state, action) => {
+      console.log("payload", action.payload);
+      state.neighborhood = action.payload;
+    },
   },
 });
 
-export const { loginSuccess, tokenStillValid } = userSlice.actions;
+export const { loginSuccess, tokenStillValid, setArea } = userSlice.actions;
 export default userSlice.reducer;
