@@ -1,7 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Middleware } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../index";
 import { Neighborhood } from "./thunk";
 
 interface NeighborhoodState {

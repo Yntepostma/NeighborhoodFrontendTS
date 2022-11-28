@@ -17,7 +17,7 @@ export const SignupPage = () => {
 
   useEffect(() => {
     if (token !== null) {
-      navigate("/");
+      navigate("/select");
     }
   }, [token, navigate]);
 

@@ -16,11 +16,11 @@ export const LoginPage = () => {
   const navigate = useNavigate();
   const token = useSelector(selectToken);
 
-  //   useEffect(() => {
-  //     if (token !== null) {
-  //       navigate("/");
-  //     }
-  //   }, [token, navigate]);
+  useEffect(() => {
+    if (token !== null) {
+      navigate("/");
+    }
+  }, [token, navigate]);
 
   const [emailAddress, setEmailAddress] = useState<string>("");
   const [password, setPassword] = useState<string>("");

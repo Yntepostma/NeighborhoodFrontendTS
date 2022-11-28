@@ -27,11 +27,14 @@ type Latlng = {
   lng: number;
 };
 
+type Message = string;
+
 type State = {
   user: User;
   token: Token;
   neighborhood: Neighborhood;
   latlng: Latlng;
+  message: Message;
 };
 
 const initialState: State = {
@@ -47,6 +50,7 @@ const initialState: State = {
   token: localStorage.getItem("token"),
   neighborhood: { postal: "", council: "", neighborhood: "", area: "" },
   latlng: { lat: 0, lng: 0 },
+  message: "",
 };
 
 export const userSlice = createSlice({
