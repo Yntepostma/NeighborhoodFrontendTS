@@ -2,20 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Middleware } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../index";
-
-interface Neighborhood {
-  zipcode: string;
-  neighborhood: string;
-  city: string;
-  area: string;
-  id: number;
-}
+import { Neighborhood } from "./thunk";
 
 interface NeighborhoodState {
   neighborhoods: Neighborhood;
 }
 const initialState: NeighborhoodState = {
-  neighborhoods: { zipcode: "", neighborhood: "", city: "", area: "", id: 0 },
+  neighborhoods: { postal: "", neighborhood: "", council: "", area: "", id: 0 },
 };
 
 export const neighborhoodSlice = createSlice({

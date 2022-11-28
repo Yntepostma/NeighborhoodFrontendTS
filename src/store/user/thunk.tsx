@@ -3,7 +3,7 @@ import { AppDispatch, RootState } from "../index";
 import { User } from "./slice";
 import { apiUrl } from "../../config";
 import { selectToken } from "./selectors";
-import { loginSuccess, tokenStillValid, setArea } from "./slice";
+import { loginSuccess, tokenStillValid, setArea, setLatlng } from "./slice";
 import { Login } from "../../Pages/LoginPage";
 import { geoKey } from "../../config";
 
@@ -16,6 +16,18 @@ export const getPostcode =
     const postcode = response.data.results[0].postcode;
     const responseArea = await axios.get(`${apiUrl}/neighborhoods/${postcode}`);
     dispatch(setArea(responseArea.data));
+  };
+
+export const getLatLong =
+  (postal: string) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const response = await axios.get(
+      `https://api.geoapify.com/v1/geocode/search?text=${postal}&lang=en&limit=10&type=postcode&filter=countrycode:nl&apiKey=${geoKey}`
+    );
+    const data = response.data.features[0].properties;
+    console.log(data);
+    const latlong = { lat: data.lat, lng: data.lon };
+    dispatch(setLatlng(latlong));
   };
 
 export const addNeighborhood =

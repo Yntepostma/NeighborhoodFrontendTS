@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { Middleware } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../index";
+import { stat } from "fs/promises";
 
 export type User = {
   userName: string;
@@ -21,10 +22,16 @@ type Neighborhood = {
   area: string;
 };
 
+type Latlng = {
+  lat: number;
+  lng: number;
+};
+
 type State = {
   user: User;
   token: Token;
   neighborhood: Neighborhood;
+  latlng: Latlng;
 };
 
 const initialState: State = {
@@ -39,6 +46,7 @@ const initialState: State = {
   },
   token: localStorage.getItem("token"),
   neighborhood: { postal: "", council: "", neighborhood: "", area: "" },
+  latlng: { lat: 0, lng: 0 },
 };
 
 export const userSlice = createSlice({
@@ -54,11 +62,15 @@ export const userSlice = createSlice({
       state.user = action.payload.user;
     },
     setArea: (state, action) => {
-      console.log("payload", action.payload);
       state.neighborhood = action.payload;
+    },
+    setLatlng: (state, action) => {
+      state.latlng = action.payload;
+      console.log(state.latlng);
     },
   },
 });
 
-export const { loginSuccess, tokenStillValid, setArea } = userSlice.actions;
+export const { loginSuccess, tokenStillValid, setArea, setLatlng } =
+  userSlice.actions;
 export default userSlice.reducer;
