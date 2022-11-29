@@ -12,9 +12,13 @@ export const HomePage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const token = useSelector(selectToken);
+  console.log(token);
 
-  if (!token) {
-  }
+  useEffect(() => {
+    if (!token) {
+      navigate("/login");
+    }
+  }, [token, navigate]);
 
   return (
     <div>

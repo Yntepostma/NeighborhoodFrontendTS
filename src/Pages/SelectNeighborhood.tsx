@@ -23,8 +23,9 @@ export const SelectNeighborhood = () => {
   const dispatch = useAppDispatch();
   const [lat, setLat] = useState<number>(0);
   const [lon, setLon] = useState<number>(0);
-  const [lon2, setLon2] = useState<number>(0);
-  const [lat2, setLat2] = useState<number>(0);
+  const [lon2, setLon2] = useState<number | null>(null);
+  const [lat2, setLat2] = useState<number | null>(null);
+  // const [latLon2, setLatLon2] = useState<{lat: number, lon: number} | null>(null)
   const [zip, setZip] = useState<string>("");
   const [loadstatus, setLoadStatus] = useState<string>("");
 
@@ -43,7 +44,9 @@ export const SelectNeighborhood = () => {
   }, []);
 
   useEffect(() => {
-    if (lat !== 0) dispatch(getPostcode(lat, lon));
+    if (lat !== 0) {
+      dispatch(getPostcode(lat, lon));
+    }
   }, [dispatch, lon, lat]);
 
   const neighborhood = useSelector(selectArea);
@@ -65,7 +68,7 @@ export const SelectNeighborhood = () => {
         <div className="flex-wrap mt-6">
           {!lat ? (
             "Loading"
-          ) : lat2 === 0 ? (
+          ) : lat2 === null || lon2 === null ? (
             <MapContainer
               center={[lat, lon]}
               zoom={15}
