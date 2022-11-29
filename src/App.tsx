@@ -8,6 +8,7 @@ import {
   LoginPage,
   SelectNeighborhood,
   EventPage,
+  DetailsEventPage,
 } from "./Pages";
 import { useEffect } from "react";
 import { useAppDispatch } from "./store/hooks";
@@ -30,6 +31,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/select" element={<SelectNeighborhood />} />
         <Route path="/events" element={<EventPage />} />
+        <Route path="/events/:id" element={<DetailsEventPage />} />
       </Routes>
     </div>
   );

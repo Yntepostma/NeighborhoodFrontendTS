@@ -5,7 +5,7 @@ export type Event = {
   description: string;
   imageUrl: string;
   latitude: number;
-  longitude: number;
+  longtitude: number;
   userId: number;
   neighborhoodId: number;
   date: Date;

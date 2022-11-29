@@ -703,6 +703,14 @@ video {
   margin-left: 1rem;
 }
 
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -777,6 +785,10 @@ video {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-screen {
+  width: 100vw;
 }
 
 .max-w-sm {
@@ -935,6 +947,18 @@ video {
 
 .bg-auto {
   background-size: auto;
+}
+
+.bg-cover {
+  background-size: cover;
+}
+
+.bg-bottom {
+  background-position: bottom;
+}
+
+.bg-center {
+  background-position: center;
 }
 
 .p-2 {

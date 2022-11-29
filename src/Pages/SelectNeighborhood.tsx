@@ -5,7 +5,7 @@ import { getNeighborhood } from "../store/neighborhood/thunk";
 import { selectLatLong, selectToken } from "../store/user/selectors";
 import { selectNeighborhood } from "../store/neighborhood/selector";
 import { useAppDispatch } from "../store/hooks";
-import { useMap, useMapEvents } from "react-leaflet";
+import image from "./images/background4.jpg";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { selectArea } from "../store/user/selectors";
@@ -64,7 +64,10 @@ export const SelectNeighborhood = () => {
   }, [latLong.lat, latLong.lng]);
 
   return (
-    <div className="bg-teal-50 h-screen">
+    <div
+      style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
+      className="h-screen"
+    >
       <div className="flex justify-around">
         <div className="flex-wrap mt-6">
           {!lat ? (

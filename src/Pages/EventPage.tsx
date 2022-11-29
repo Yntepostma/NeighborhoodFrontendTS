@@ -7,6 +7,7 @@ import { selectEvents } from "../store/event/selector";
 import { FormEvent } from "react";
 import DatePicker from "react-date-picker";
 import { EventCard, EventProps } from "../Components/EventCard";
+import image from "./images/background4.jpg";
 
 export const EventPage = () => {
   const dispatch = useAppDispatch();
@@ -15,7 +16,7 @@ export const EventPage = () => {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [zipCode, setZipCode] = useState<string>("");
   const [street, setStreet] = useState<string>("");
-  const [houseNumber, setHouseNumber] = useState<number>(0);
+  const [houseNumber, setHouseNumber] = useState<number | null>(null);
   const [date, setDate] = useState<Date>(new Date());
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -43,7 +44,10 @@ export const EventPage = () => {
   console.log("events", events);
 
   return (
-    <div className="bg-teal-50 h-screen">
+    <div
+      style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
+      className="bg-center h-screen"
+    >
       <div>
         <button
           className="inline-flex items-center px-3 ml-2 mt-2 mb-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -111,7 +115,7 @@ export const EventPage = () => {
                     <input
                       className="block border border-grey-light p-2 rounded mb-4 w-40 ml-2"
                       type="number"
-                      value={houseNumber}
+                      value={houseNumber!}
                       onChange={(e: any) => setHouseNumber(e.target.value)}
                       placeholder="House Number"
                     />
@@ -130,16 +134,19 @@ export const EventPage = () => {
       </div>
       {!events
         ? "Loading"
+        : showForm
+        ? ""
         : events.map((item) => {
             return (
               <EventCard
                 key={item.id}
+                id={item.id}
                 title={item.title}
                 imageUrl={item.imageUrl}
                 description={item.description}
                 date={item.date}
                 latitude={item.latitude}
-                longitude={item.longitude}
+                longitude={item.longtitude}
               />
             );
           })}
