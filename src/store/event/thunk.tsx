@@ -4,7 +4,6 @@ import { AppDispatch, RootState } from "..";
 import { selectToken } from "../user/selectors";
 import { setEvents } from "./slice";
 import { geoKey } from "../../config";
-import { setLatLong } from "./slice";
 
 type newEvent = {
   street: string;
@@ -42,7 +41,6 @@ export const createEvent =
     const token = selectToken(getState());
     const latitude = response.data.results[0].lat;
     const longtitude = response.data.results[0].lon;
-    console.log("lat", latitude, "lon", longtitude);
     const response2 = await axios.post(
       `${apiUrl}/events`,
       {

@@ -1,4 +1,3 @@
 import { RootState } from "..";
 
-export const selectLatLong = (reduxState: RootState) =>
-  reduxState.event.latLong;
+export const selectEvents = (ReduxState: RootState) => ReduxState.event.events;
