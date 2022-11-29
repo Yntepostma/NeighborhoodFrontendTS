@@ -6,10 +6,14 @@ import { setEvents } from "./slice";
 import { geoKey } from "../../config";
 import { setLatLong } from "./slice";
 
-type Location = {
+type newEvent = {
   street: string;
   zipCode: string;
   houseNumber: number;
+  title: string;
+  description: string;
+  imageUrl: string;
+  date: Date;
 };
 
 export const getEvents =
@@ -21,22 +25,37 @@ export const getEvents =
     dispatch(setEvents(response.data));
   };
 
-export const getLatLong =
-  ({ zipCode, street, houseNumber }: Location) =>
+export const createEvent =
+  ({
+    zipCode,
+    street,
+    houseNumber,
+    title,
+    description,
+    imageUrl,
+    date,
+  }: newEvent) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
     const response = await axios.get(
       `https://api.geoapify.com/v1/geocode/search?housenumber=${houseNumber}&street=${street}&postcode=${zipCode}&&format=json&apiKey=${geoKey}`
     );
-    console.log("Response from API", response.data.results[0]);
-    dispatch(setLatLong(response.data.results[0]));
-  };
-
-export const createEvent =
-  (newEvent: Event) =>
-  async (dispatch: AppDispatch, getState: () => RootState) => {
-    const { title, description, imageUrl, longitude, latitude };
-    const response = await axios.post(`${apiUrl}/events`, {
-      title,
-      description,
-    });
+    const token = selectToken(getState());
+    const latitude = response.data.results[0].lat;
+    const longtitude = response.data.results[0].lon;
+    console.log("lat", latitude, "lon", longtitude);
+    const response2 = await axios.post(
+      `${apiUrl}/events`,
+      {
+        title,
+        description,
+        imageUrl,
+        latitude,
+        longtitude,
+        date,
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("responnse from backend", response2);
   };

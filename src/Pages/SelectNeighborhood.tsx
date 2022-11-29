@@ -9,6 +9,7 @@ import { useMap, useMapEvents } from "react-leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { selectArea } from "../store/user/selectors";
+import MapController from "../Components/MapController";
 
 export const SelectNeighborhood = () => {
   const token = useSelector(selectToken);
@@ -68,7 +69,7 @@ export const SelectNeighborhood = () => {
         <div className="flex-wrap mt-6">
           {!lat ? (
             "Loading"
-          ) : lat2 === null || lon2 === null ? (
+          ) : (
             <MapContainer
               center={[lat, lon]}
               zoom={15}
@@ -86,25 +87,7 @@ export const SelectNeighborhood = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               />
               <Marker position={[lat, lon]}></Marker>
-            </MapContainer>
-          ) : (
-            <MapContainer
-              center={[lat2, lon2]}
-              zoom={15}
-              scrollWheelZoom={true}
-              style={{
-                borderRadius: "10px",
-                height: "35vw",
-                width: "45vw",
-                margin: "0 10px",
-                boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
-              }}
-            >
-              <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[lat2, lon2]}></Marker>
+              <MapController lat={lat2} lon={lon2} />
             </MapContainer>
           )}
         </div>
