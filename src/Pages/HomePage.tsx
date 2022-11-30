@@ -9,9 +9,12 @@ import { getLatLong } from "../store/user/thunk";
 import { selectLatLong } from "../store/user/selectors";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-import { selectToken, selectArea } from "../store/user/selectors";
-import image from "./images/background4.jpg";
-import { neighborhoodSlice } from "../store/neighborhood/slice";
+import {
+  selectToken,
+  selectArea,
+  selectUserNeighborhood,
+} from "../store/user/selectors";
+import image from "./images/background5.jpg";
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -26,10 +29,8 @@ export const HomePage = () => {
     }
   }, [token, navigate]);
 
-  const neighborhood = useSelector(selectArea);
-  console.log("neighborhood", neighborhood);
+  const neighborhood = useSelector(selectUserNeighborhood);
   const events = useSelector(selectEvents);
-  console.log("events", events);
   const localEvents = events?.filter((event) => {
     return event.neighborhoodId === neighborhood?.id;
   });
@@ -65,6 +66,7 @@ export const HomePage = () => {
             scrollWheelZoom={true}
             style={{
               borderRadius: "10px",
+              border: "2px solid white",
               height: "35vw",
               width: "45vw",
               margin: "20px",
@@ -108,10 +110,10 @@ export const HomePage = () => {
           </div>
           <div className="px-6 pt-4 pb-2">
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              {neighborhood.council}
+              {neighborhood?.council}
             </span>
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              {neighborhood.neighborhood}
+              {neighborhood?.neighborhood}
             </span>
           </div>
         </div>

@@ -7,7 +7,7 @@ import { selectEvents, selectCategories } from "../store/event/selector";
 import { FormEvent } from "react";
 import DatePicker from "react-date-picker";
 import { EventCard, EventProps } from "../Components/EventCard";
-import image from "./images/background4.jpg";
+import image from "./images/background5.jpg";
 import Select from "react-select";
 
 export const EventPage = () => {
@@ -156,28 +156,30 @@ export const EventPage = () => {
           </div>
         )}
       </div>
-      {!events
-        ? "Loading"
-        : showForm
-        ? ""
-        : events.map((item) => {
+      {!events ? (
+        "Loading"
+      ) : showForm ? (
+        ""
+      ) : (
+        <div className="flex-row">
+          {events.map((item) => {
             return (
-              <div className="flex-row">
-                <div>
-                  <EventCard
-                    key={item.id}
-                    id={item.id}
-                    title={item.title}
-                    imageUrl={item.imageUrl}
-                    description={item.description}
-                    date={item.date}
-                    latitude={item.latitude}
-                    longitude={item.longtitude}
-                  />
-                </div>
+              <div>
+                <EventCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  imageUrl={item.imageUrl}
+                  description={item.description}
+                  date={item.date}
+                  latitude={item.latitude}
+                  longitude={item.longtitude}
+                />
               </div>
             );
           })}
+        </div>
+      )}
     </div>
   );
 };

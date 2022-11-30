@@ -10,7 +10,7 @@ export const NavBar = () => {
   return (
     <nav className="bg-white border-gray-200 px-2 sm:px-4 py-0 rounded dark:bg-gray-900">
       <div className="container flex flex-wrap items-center justify-between mx-auto ">
-        <NavLink to="/home" className="flex items-center">
+        <NavLink to="/" className="flex items-center">
           <img
             src={logo}
             className="h-16 mr-3 sm:h-16"

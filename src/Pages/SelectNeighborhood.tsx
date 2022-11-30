@@ -5,7 +5,7 @@ import { getNeighborhood } from "../store/neighborhood/thunk";
 import { selectLatLong, selectToken } from "../store/user/selectors";
 import { selectNeighborhood } from "../store/neighborhood/selector";
 import { useAppDispatch } from "../store/hooks";
-import image from "./images/background4.jpg";
+import image from "./images/background5.jpg";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { selectArea } from "../store/user/selectors";
@@ -30,8 +30,6 @@ export const SelectNeighborhood = () => {
   const [zip, setZip] = useState<string>("");
   const [loadstatus, setLoadStatus] = useState<string>("");
 
-  console.log("lat2", lat2, "lon2", lon2);
-
   useEffect(() => {
     if (!navigator.geolocation) {
       setLoadStatus("Geolocation is not supported on this browser");
@@ -54,7 +52,6 @@ export const SelectNeighborhood = () => {
   const postal = neighborhood?.postal;
   const selectedNeighborhood = useSelector(selectNeighborhood);
   const latLong = useSelector(selectLatLong);
-  console.log("latlong", latLong);
 
   useEffect(() => {
     if (latLong.lat !== 0) {
@@ -66,7 +63,7 @@ export const SelectNeighborhood = () => {
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
-      className="h-screen"
+      className="h-screen bg-center"
     >
       <div className="flex justify-around">
         <div className="flex-wrap mt-6">
@@ -78,6 +75,7 @@ export const SelectNeighborhood = () => {
               zoom={15}
               scrollWheelZoom={true}
               style={{
+                border: "solid 2px white",
                 borderRadius: "10px",
                 height: "35vw",
                 width: "45vw",
