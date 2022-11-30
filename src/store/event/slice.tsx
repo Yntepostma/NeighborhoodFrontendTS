@@ -12,12 +12,19 @@ export type Event = {
   id: number;
 };
 
+type Category = {
+  id: number;
+  name: string;
+};
+
 type State = {
   events: Event[];
+  categories: Category[];
 };
 
 const initialState: State = {
   events: [],
+  categories: [],
 };
 
 export const eventSlice = createSlice({
@@ -27,8 +34,11 @@ export const eventSlice = createSlice({
     setEvents: (state, action) => {
       state.events = action.payload;
     },
+    setCategories: (state, action) => {
+      state.categories = action.payload;
+    },
   },
 });
 
-export const { setEvents } = eventSlice.actions;
+export const { setEvents, setCategories } = eventSlice.actions;
 export default eventSlice.reducer;

@@ -1,32 +1,17 @@
 import { getEvents } from "../store/event/thunk";
 import { useAppDispatch } from "../store/hooks";
 import { useState, useEffect } from "react";
-import { createEvent } from "../store/event/thunk";
+import { createEvent, getCategories } from "../store/event/thunk";
 import { useSelector } from "react-redux";
-import { selectEvents } from "../store/event/selector";
+import { selectEvents, selectCategories } from "../store/event/selector";
 import { FormEvent } from "react";
 import DatePicker from "react-date-picker";
 import { EventCard, EventProps } from "../Components/EventCard";
 import image from "./images/background4.jpg";
 import Select from "react-select";
 
-type OptionType = {
-  id: number;
-  value: string;
-  label: string;
-};
-
 export const EventPage = () => {
-  const options: OptionType[] = [
-    { id: 0, value: "", label: "" },
-    { id: 1, value: "Social interaction", label: "Social interaction" },
-    { id: 2, value: "Sports and Exercise", label: "Sports and Exercise" },
-    { id: 3, value: "Help and Support", label: "Help and Support" },
-    { id: 4, value: "Social interaction", label: "Social interaction" },
-    { id: 5, value: "Volunteer", label: "Volunteer" },
-    { id: 6, value: "Goods and Services", label: "Goods and Services" },
-    { id: 7, value: "Yoga & Spirituality", label: "Yoga & Spirituality" },
-  ];
+  const categories = useSelector(selectCategories);
 
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>("");
@@ -36,8 +21,13 @@ export const EventPage = () => {
   const [street, setStreet] = useState<string>("");
   const [houseNumber, setHouseNumber] = useState<number | null>(null);
   const [date, setDate] = useState<Date>(new Date());
-  const [showForm, setShowForm] = useState<boolean>(true);
-  const [category, setCategory] = useState<number>();
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [category, setCategory] = useState<number>(0);
+
+  useEffect(() => {
+    dispatch(getCategories());
+    dispatch(getEvents());
+  }, [dispatch]);
 
   console.log("category", category);
 
@@ -52,14 +42,11 @@ export const EventPage = () => {
         houseNumber,
         zipCode,
         date,
+        category,
       };
       dispatch(createEvent(newEvent));
     }
   };
-
-  useEffect(() => {
-    dispatch(getEvents());
-  }, []);
 
   const events = useSelector(selectEvents);
   console.log("events", events);
@@ -80,7 +67,7 @@ export const EventPage = () => {
           ""
         ) : (
           <div>
-            <div className="block p-6 ml-2 rounded-lg shadow-lg bg-white w-7/12 mb-6 content-center">
+            <div className="block p-6 ml-2 rounded-lg shadow-lg bg-white w-6/12 mb-6 content-center">
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                 Add an event:
               </h5>
@@ -97,11 +84,12 @@ export const EventPage = () => {
                   <p>Select Category </p> {"   "}
                   <select
                     onChange={(e) => setCategory(parseInt(e.target.value))}
+                    placeholder="Select Category"
                     className="block border border-grey-light p-2 rounded mb-4 w-40 ml-2"
                   >
-                    {options.map((cat) => (
+                    {categories.map((cat) => (
                       <option key={cat.id} value={cat.id}>
-                        {cat.value}
+                        {cat.name}
                       </option>
                     ))}
                   </select>

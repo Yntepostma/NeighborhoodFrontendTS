@@ -9,3 +9,6 @@ export const selectEventById = (id: number) => (ReduxState: RootState) => {
   });
   return selectedEvent;
 };
+
+export const selectCategories = (ReduxState: RootState) =>
+  ReduxState.event.categories;

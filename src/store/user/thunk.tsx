@@ -2,6 +2,8 @@ import axios from "axios";
 import { AppDispatch, RootState } from "../index";
 import { User } from "./slice";
 import { apiUrl } from "../../config";
+import { setNeighborHood } from "../neighborhood/slice";
+import { setUserNeighborHood } from "./slice";
 import { selectToken } from "./selectors";
 import {
   loginSuccess,
@@ -47,6 +49,7 @@ export const addNeighborhood =
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    dispatch(setNeighborHood(response.data));
     console.log(response);
   };
 
@@ -78,6 +81,7 @@ export const login =
         password,
       });
       dispatch(loginSuccess(response.data));
+      dispatch(setUserNeighborHood(response.data.neighborhood));
     } catch (error: any) {
       console.log(error.message);
     }
@@ -92,6 +96,7 @@ export const getUserWithStoredToken =
       const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      dispatch(setUserNeighborHood(response.data.neighborhood));
       dispatch(tokenStillValid({ user: response.data }));
     } catch (error: any) {
       if (error.response) {

@@ -2,7 +2,7 @@ import axios from "axios";
 import { apiUrl } from "../../config";
 import { AppDispatch, RootState } from "..";
 import { selectToken } from "../user/selectors";
-import { setEvents } from "./slice";
+import { setEvents, setCategories } from "./slice";
 import { geoKey } from "../../config";
 
 type newEvent = {
@@ -13,15 +13,30 @@ type newEvent = {
   description: string;
   imageUrl: string;
   date: Date;
+  category: number;
 };
 
 export const getEvents =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const token = selectToken(getState());
+    console.log("here");
     const response = await axios.get(`${apiUrl}/events`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    console.log("response", response);
     dispatch(setEvents(response.data));
+  };
+
+export const deleteEvent =
+  (id: number) => async (dispatch: AppDispatch, getState: () => RootState) => {
+    const response = await axios.delete(`${apiUrl}/events/${id}`);
+    console.log(response);
+  };
+
+export const getCategories =
+  () => async (dispatch: AppDispatch, getState: () => RootState) => {
+    const response = await axios.get(`${apiUrl}/events/categories`);
+    dispatch(setCategories(response.data));
   };
 
 export const createEvent =
@@ -33,6 +48,7 @@ export const createEvent =
     description,
     imageUrl,
     date,
+    category,
   }: newEvent) =>
   async (dispatch: AppDispatch, getState: () => RootState) => {
     const response = await axios.get(
@@ -50,6 +66,7 @@ export const createEvent =
         latitude,
         longtitude,
         date,
+        category,
       },
       {
         headers: { Authorization: `Bearer ${token}` },

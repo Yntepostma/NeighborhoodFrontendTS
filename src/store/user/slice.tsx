@@ -85,9 +85,19 @@ export const userSlice = createSlice({
         profilePicture: "",
       };
     },
+    setUserNeighborHood: (state, action) => {
+      state.neighborhood = action.payload;
+      console.log("state", state.neighborhood);
+    },
   },
 });
 
-export const { loginSuccess, tokenStillValid, setArea, setLatlng, logOut } =
-  userSlice.actions;
+export const {
+  loginSuccess,
+  tokenStillValid,
+  setArea,
+  setLatlng,
+  logOut,
+  setUserNeighborHood,
+} = userSlice.actions;
 export default userSlice.reducer;
