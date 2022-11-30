@@ -163,16 +163,18 @@ export const EventPage = () => {
         : events.map((item) => {
             return (
               <div className="flex-row">
-                <EventCard
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  imageUrl={item.imageUrl}
-                  description={item.description}
-                  date={item.date}
-                  latitude={item.latitude}
-                  longitude={item.longtitude}
-                />
+                <div>
+                  <EventCard
+                    key={item.id}
+                    id={item.id}
+                    title={item.title}
+                    imageUrl={item.imageUrl}
+                    description={item.description}
+                    date={item.date}
+                    latitude={item.latitude}
+                    longitude={item.longtitude}
+                  />
+                </div>
               </div>
             );
           })}

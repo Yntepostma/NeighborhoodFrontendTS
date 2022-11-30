@@ -12,6 +12,7 @@ export type User = {
   password: string;
   phoneNumber?: string;
   profilePicture?: string;
+  id: number;
 };
 
 type Token = string | null;
@@ -46,6 +47,7 @@ const initialState: State = {
     password: "",
     phoneNumber: "",
     profilePicture: "",
+    id: 0,
   },
   token: localStorage.getItem("token"),
   neighborhood: { postal: "", council: "", neighborhood: "", area: "" },
@@ -83,6 +85,7 @@ export const userSlice = createSlice({
         password: "",
         phoneNumber: "",
         profilePicture: "",
+        id: 0,
       };
     },
     setUserNeighborHood: (state, action) => {

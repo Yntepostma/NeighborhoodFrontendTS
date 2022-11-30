@@ -9,6 +9,14 @@ import { selectToken } from "../store/user/selectors";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+export type NewUser = {
+  userName: string;
+  firstName: string;
+  lastName: string;
+  emailAddress: string;
+  password: string;
+};
+
 export const SignupPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -29,7 +37,7 @@ export const SignupPage = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const newUser: User = {
+    const newUser: NewUser = {
       userName,
       firstName,
       lastName,

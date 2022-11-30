@@ -29,9 +29,11 @@ export const HomePage = () => {
   const neighborhood = useSelector(selectArea);
   console.log("neighborhood", neighborhood);
   const events = useSelector(selectEvents);
+  console.log("events", events);
   const localEvents = events?.filter((event) => {
     return event.neighborhoodId === neighborhood?.id;
   });
+  console.log("local", localEvents);
 
   useEffect(() => {
     if (neighborhood) {
@@ -53,45 +55,67 @@ export const HomePage = () => {
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
       className="bg-center h-screen"
     >
-      <h2 className="font-medium bg-wleading-tight text-4xl pt-5 p4-2 mr-4 mb-2 text-grey">
-        Welcome to {neighborhood.neighborhood}
-      </h2>
-      {lat === 0 ? (
-        "loading"
-      ) : (
-        <MapContainer
-          center={[lat, lon]}
-          zoom={15}
-          scrollWheelZoom={true}
-          style={{
-            borderRadius: "10px",
-            height: "35vw",
-            width: "45vw",
-            margin: "0 10px",
-            boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
-          }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {localEvents.map((event) => (
-            <Marker
-              key={event.title}
-              position={[event.latitude, event.longtitude]}
-            >
-              <Popup>
-                <img
-                  alt={event.title}
-                  style={{ width: "100px", borderRadius: "0.5em" }}
-                  src={event.imageUrl}
-                />
-                <p>{event.title}</p>
-              </Popup>
-            </Marker>
-          ))}
-        </MapContainer>
-      )}
+      <div className="flex justify-around">
+        {lat === 0 ? (
+          "loading"
+        ) : (
+          <MapContainer
+            center={[lat, lon]}
+            zoom={15}
+            scrollWheelZoom={true}
+            style={{
+              borderRadius: "10px",
+              height: "35vw",
+              width: "45vw",
+              margin: "20px",
+              padding: "20px",
+              boxShadow: "0px 5px 10px 0px rgba(0, 0, 0, 0.5)",
+            }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {localEvents?.map((event) => (
+              <Marker
+                key={event.title}
+                position={[event.latitude, event.longtitude]}
+              >
+                <Popup>
+                  <img
+                    alt={event.title}
+                    style={{ width: "100px", borderRadius: "0.5em" }}
+                    src={event.imageUrl}
+                  />
+                  <p>{event.title}</p>
+                </Popup>
+              </Marker>
+            ))}
+          </MapContainer>
+        )}
+
+        <div className="max-w-sm rounded bg-white overflow-hidden h-4/6 mt-20 shadow-lg">
+          <div className="px-6 py-4">
+            <div className="font-bold text-xl mb-2">
+              Welcome to Neighborhood!
+            </div>
+            <p className="text-gray-700 text-base">
+              Connect with your neighbors through events, the marketplace or the
+              messageboard. <br></br>
+              <br></br>Click on the map to see to which events are hosted in
+              your neighborhood.
+            </p>
+          </div>
+          <div className="px-6 pt-4 pb-2">
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              {neighborhood.council}
+            </span>
+            <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+              {neighborhood.neighborhood}
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

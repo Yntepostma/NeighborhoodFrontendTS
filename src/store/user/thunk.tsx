@@ -1,5 +1,6 @@
 import axios from "axios";
 import { AppDispatch, RootState } from "../index";
+import { NewUser } from "../../Pages/SignupPage";
 import { User } from "./slice";
 import { apiUrl } from "../../config";
 import { setNeighborHood } from "../neighborhood/slice";
@@ -14,6 +15,7 @@ import {
 } from "./slice";
 import { Login } from "../../Pages/LoginPage";
 import { geoKey } from "../../config";
+import { getEvents } from "../event/thunk";
 
 export const getPostcode =
   (lat: number, lon: number) =>
@@ -54,7 +56,8 @@ export const addNeighborhood =
   };
 
 export const signUp =
-  (user: User) => async (dispatch: AppDispatch, getState: () => RootState) => {
+  (user: NewUser) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
     const { userName, firstName, lastName, emailAddress, password } = user;
     try {
       const response = await axios.post(`${apiUrl}/auth/signup`, {
@@ -98,6 +101,7 @@ export const getUserWithStoredToken =
       });
       dispatch(setUserNeighborHood(response.data.neighborhood));
       dispatch(tokenStillValid({ user: response.data }));
+      dispatch(getEvents());
     } catch (error: any) {
       if (error.response) {
         console.log(error.response.message);
