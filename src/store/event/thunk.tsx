@@ -56,4 +56,5 @@ export const createEvent =
       }
     );
     console.log("responnse from backend", response2);
+    dispatch(getEvents());
   };

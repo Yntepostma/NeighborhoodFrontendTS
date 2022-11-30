@@ -8,8 +8,26 @@ import { FormEvent } from "react";
 import DatePicker from "react-date-picker";
 import { EventCard, EventProps } from "../Components/EventCard";
 import image from "./images/background4.jpg";
+import Select from "react-select";
+
+type OptionType = {
+  id: number;
+  value: string;
+  label: string;
+};
 
 export const EventPage = () => {
+  const options: OptionType[] = [
+    { id: 0, value: "", label: "" },
+    { id: 1, value: "Social interaction", label: "Social interaction" },
+    { id: 2, value: "Sports and Exercise", label: "Sports and Exercise" },
+    { id: 3, value: "Help and Support", label: "Help and Support" },
+    { id: 4, value: "Social interaction", label: "Social interaction" },
+    { id: 5, value: "Volunteer", label: "Volunteer" },
+    { id: 6, value: "Goods and Services", label: "Goods and Services" },
+    { id: 7, value: "Yoga & Spirituality", label: "Yoga & Spirituality" },
+  ];
+
   const dispatch = useAppDispatch();
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
@@ -18,7 +36,10 @@ export const EventPage = () => {
   const [street, setStreet] = useState<string>("");
   const [houseNumber, setHouseNumber] = useState<number | null>(null);
   const [date, setDate] = useState<Date>(new Date());
-  const [showForm, setShowForm] = useState<boolean>(false);
+  const [showForm, setShowForm] = useState<boolean>(true);
+  const [category, setCategory] = useState<number>();
+
+  console.log("category", category);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -59,18 +80,33 @@ export const EventPage = () => {
           ""
         ) : (
           <div>
-            <div className="block p-6 rounded-lg shadow-lg bg-white w-4/6 mb-6 content-center">
+            <div className="block p-6 ml-2 rounded-lg shadow-lg bg-white w-7/12 mb-6 content-center">
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                 Add an event:
               </h5>
-              <h3>
-                Date:{" "}
-                <DatePicker
-                  className="absolute"
-                  onChange={setDate}
-                  value={date}
-                />
-              </h3>{" "}
+              <div className="flex row">
+                <h3 className="mr-5">
+                  Date:{" "}
+                  <DatePicker
+                    className="absolute"
+                    onChange={setDate}
+                    value={date}
+                  />
+                </h3>
+                <h3 className="flex row">
+                  <p>Select Category </p> {"   "}
+                  <select
+                    onChange={(e) => setCategory(parseInt(e.target.value))}
+                    className="block border border-grey-light p-2 rounded mb-4 w-40 ml-2"
+                  >
+                    {options.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.value}
+                      </option>
+                    ))}
+                  </select>
+                </h3>
+              </div>
               <br></br>
               <form onSubmit={handleSubmit}>
                 <div className="text-gray-700 text-base mb-4">
@@ -138,16 +174,18 @@ export const EventPage = () => {
         ? ""
         : events.map((item) => {
             return (
-              <EventCard
-                key={item.id}
-                id={item.id}
-                title={item.title}
-                imageUrl={item.imageUrl}
-                description={item.description}
-                date={item.date}
-                latitude={item.latitude}
-                longitude={item.longtitude}
-              />
+              <div className="flex-row">
+                <EventCard
+                  key={item.id}
+                  id={item.id}
+                  title={item.title}
+                  imageUrl={item.imageUrl}
+                  description={item.description}
+                  date={item.date}
+                  latitude={item.latitude}
+                  longitude={item.longtitude}
+                />
+              </div>
             );
           })}
     </div>

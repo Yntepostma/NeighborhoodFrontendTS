@@ -72,9 +72,22 @@ export const userSlice = createSlice({
       state.latlng = action.payload;
       console.log(state.latlng);
     },
+    logOut: (state) => {
+      localStorage.removeItem("token");
+      state.token = null;
+      state.user = {
+        userName: "",
+        firstName: "",
+        lastName: "",
+        emailAddress: "",
+        password: "",
+        phoneNumber: "",
+        profilePicture: "",
+      };
+    },
   },
 });
 
-export const { loginSuccess, tokenStillValid, setArea, setLatlng } =
+export const { loginSuccess, tokenStillValid, setArea, setLatlng, logOut } =
   userSlice.actions;
 export default userSlice.reducer;

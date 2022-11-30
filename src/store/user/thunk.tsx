@@ -3,7 +3,13 @@ import { AppDispatch, RootState } from "../index";
 import { User } from "./slice";
 import { apiUrl } from "../../config";
 import { selectToken } from "./selectors";
-import { loginSuccess, tokenStillValid, setArea, setLatlng } from "./slice";
+import {
+  loginSuccess,
+  tokenStillValid,
+  setArea,
+  setLatlng,
+  logOut,
+} from "./slice";
 import { Login } from "../../Pages/LoginPage";
 import { geoKey } from "../../config";
 
@@ -93,5 +99,6 @@ export const getUserWithStoredToken =
       } else {
         console.log(error);
       }
+      dispatch(logOut());
     }
   };
