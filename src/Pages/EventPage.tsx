@@ -28,8 +28,6 @@ export const EventPage = () => {
     dispatch(getEvents());
   }, [dispatch]);
 
-  console.log("category", category);
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (houseNumber !== null) {
@@ -48,7 +46,6 @@ export const EventPage = () => {
   };
 
   const events = useSelector(selectEvents);
-  console.log("events", events);
 
   return (
     <div className=" bg-teal-100 bg-scroll">
@@ -157,7 +154,7 @@ export const EventPage = () => {
       ) : showForm ? (
         ""
       ) : (
-        <div>
+        <div style={{ display: "flex" }}>
           {events.map((item) => {
             return (
               <div className=" flex-row justify-items-start">

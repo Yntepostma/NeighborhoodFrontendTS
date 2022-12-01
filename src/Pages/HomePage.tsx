@@ -33,9 +33,6 @@ export const HomePage = () => {
   const neighborhood = useSelector(selectUserNeighborhood);
   const events = useSelector(selectEvents);
   const marketplaces = useSelector(selectMarketPlaces);
-  const localEvents = events?.filter((event) => {
-    return event.neighborhoodId === neighborhood?.id;
-  });
 
   useEffect(() => {
     if (neighborhood) {
@@ -81,7 +78,7 @@ export const HomePage = () => {
             />
 
             {!toggle
-              ? localEvents?.map((event) => (
+              ? events?.map((event) => (
                   <Marker
                     key={event.title}
                     position={[event.latitude, event.longtitude]}
@@ -130,8 +127,10 @@ export const HomePage = () => {
             <p className="text-gray-700 text-base">
               Connect with your neighbors through events, the marketplace or the
               messageboard. <br></br>
-              <br></br>Click on the map to see to which events are hosted in
-              your neighborhood.
+              <br></br>Click on the map to see to which <strong>events</strong>{" "}
+              are hosted in your neighborhood. <br></br> <br></br>Or have a look
+              what your neighbors are asking for or offering through the{" "}
+              <strong>marketplace</strong>
             </p>
           </div>
           <div className="px-6 pt-4 pb-2">

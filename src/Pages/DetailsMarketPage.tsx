@@ -1,17 +1,41 @@
+import axios from "axios";
 import { useAppDispatch } from "../store/hooks";
 import { selectMarketPlaceById } from "../store/marketplace/selector";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import image from "./images/background5.jpg";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { NavLink } from "react-router-dom";
+import { AppDispatch, RootState } from "../store";
+import { apiUrl } from "../config";
 
 export const DetailsMarketPage = () => {
+  const getUser =
+    (id: number) =>
+    async (dispatch: AppDispatch, getState: () => RootState) => {
+      console.log("Hello");
+      const response = await axios.get(`${apiUrl}/events/user/${id}`);
+      console.log("response user", response.data.emailAddress);
+    };
+
   const { id } = useParams();
   const intId: number = parseInt(id!);
 
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [userEmail, setUserEmail] = useState<string>("");
+
   const dispatch = useAppDispatch();
   const marketplace = useSelector(selectMarketPlaceById(intId));
+  console.log("marketplace", marketplace);
+
+  useEffect(() => {
+    if (marketplace) {
+      dispatch(getUser(marketplace.userId));
+    }
+  }, [marketplace]);
+
+  console.log("marketplace", marketplace);
 
   return (
     <div className=" bg-teal-100 bg-scroll">
@@ -33,18 +57,30 @@ export const DetailsMarketPage = () => {
                 {marketplace?.description}
               </p>
               <div className="flex-row">
-                <NavLink
-                  to="/"
-                  className="inline-flex mr-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
+                <button className="inline-flex mr-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                   contact
-                </NavLink>
-                <NavLink
-                  to="/"
+                </button>
+                <button
+                  onClick={() => setToggle(!toggle)}
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   send response
-                </NavLink>
+                </button>
+                {!toggle ? (
+                  ""
+                ) : (
+                  <form
+                    action={`mailto:${userEmail}`}
+                    method="post"
+                    encType="text/plain"
+                  >
+                    FirstName:
+                    <input type="text" name="FirstName" />
+                    Email:
+                    <input type="text" name="Email" />
+                    <input type="submit" name="submit" value="Submit" />
+                  </form>
+                )}
               </div>
             </div>
           </div>

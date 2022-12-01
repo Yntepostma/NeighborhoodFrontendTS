@@ -148,10 +148,10 @@ export const MarketPlacePage = () => {
       ) : showForm ? (
         ""
       ) : (
-        <div>
+        <div style={{ display: "flex" }}>
           {marketplaces.map((item) => {
             return (
-              <div className=" flex-row justify-items-start">
+              <div>
                 <MarketPlaceCard
                   key={item.id}
                   id={item.id}

@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getPostcode, addNeighborhood, getLatLong } from "../store/user/thunk";
+import {
+  getPostcode,
+  addNeighborhood,
+  getLatLongSignUp,
+} from "../store/user/thunk";
 import { getNeighborhood } from "../store/neighborhood/thunk";
-import { selectLatLong, selectToken } from "../store/user/selectors";
+import { selectLatLongSignUp, selectToken } from "../store/user/selectors";
 import { selectNeighborhood } from "../store/neighborhood/selector";
 import { useAppDispatch } from "../store/hooks";
 import image from "./images/background5.jpg";
@@ -51,7 +55,7 @@ export const SelectNeighborhood = () => {
   const neighborhood = useSelector(selectArea);
   const postal = neighborhood?.postal;
   const selectedNeighborhood = useSelector(selectNeighborhood);
-  const latLong = useSelector(selectLatLong);
+  const latLong = useSelector(selectLatLongSignUp);
 
   useEffect(() => {
     if (latLong.lat !== 0) {
@@ -62,7 +66,11 @@ export const SelectNeighborhood = () => {
 
   return (
     <div
-      style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
+      style={{
+        backgroundImage: `url(${image}) `,
+        backgroundSize: "cover",
+        opacity: "50%",
+      }}
       className="h-screen bg-center"
     >
       <div className="flex justify-around">
@@ -133,7 +141,7 @@ export const SelectNeighborhood = () => {
                     className="ml-2 text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                     onClick={(e: any) => {
                       dispatch(getNeighborhood(zip));
-                      dispatch(getLatLong(zip));
+                      dispatch(getLatLongSignUp(zip));
                     }}
                   >
                     search

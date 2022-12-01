@@ -12,6 +12,7 @@ import {
   tokenStillValid,
   setArea,
   setLatlng,
+  setLatlngSignUp,
   logOut,
 } from "./slice";
 import { Login } from "../../Pages/LoginPage";
@@ -36,9 +37,21 @@ export const getLatLong =
       `https://api.geoapify.com/v1/geocode/search?text=${postal}&lang=en&limit=10&type=postcode&filter=countrycode:nl&apiKey=${geoKey}`
     );
     const data = response.data.features[0].properties;
-    console.log(data);
+
     const latlong = { lat: data.lat, lng: data.lon };
     dispatch(setLatlng(latlong));
+  };
+
+export const getLatLongSignUp =
+  (postal: string) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const response = await axios.get(
+      `https://api.geoapify.com/v1/geocode/search?text=${postal}&lang=en&limit=10&type=postcode&filter=countrycode:nl&apiKey=${geoKey}`
+    );
+    const data = response.data.features[0].properties;
+    console.log(data);
+    const latlong = { lat: data.lat, lng: data.lon };
+    dispatch(setLatlngSignUp(latlong));
   };
 
 export const addNeighborhood =
@@ -85,7 +98,9 @@ export const login =
         password,
       });
       dispatch(loginSuccess(response.data));
-      dispatch(setUserNeighborHood(response.data.neighborhood));
+      dispatch(setUserNeighborHood(response.data.user.neighborhood));
+      dispatch(getEvents());
+      dispatch(getMarketPlaces());
     } catch (error: any) {
       console.log(error.message);
     }
@@ -94,7 +109,6 @@ export const login =
 export const getUserWithStoredToken =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const token = selectToken(getState());
-    console.log(token);
     if (token === null) return;
     try {
       const response = await axios.get(`${apiUrl}/auth/me`, {

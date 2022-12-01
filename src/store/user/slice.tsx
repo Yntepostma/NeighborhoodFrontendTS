@@ -32,6 +32,11 @@ type Latlng = {
   lng: number;
 };
 
+type LatlngSignUp = {
+  lat: number;
+  lng: number;
+};
+
 type Message = string;
 
 type State = {
@@ -40,6 +45,7 @@ type State = {
   currentNeighborhood: CurrentNeighborhood;
   neighborhood: Neighborhood;
   latlng: Latlng;
+  latlngSignUp: LatlngSignUp;
   message: Message;
 };
 
@@ -58,6 +64,7 @@ const initialState: State = {
   currentNeighborhood: { postal: "", council: "", neighborhood: "", area: "" },
   neighborhood: { id: 0, postal: "", council: "", neighborhood: "", area: "" },
   latlng: { lat: 0, lng: 0 },
+  latlngSignUp: { lat: 0, lng: 0 },
   message: "",
 };
 
@@ -78,7 +85,9 @@ export const userSlice = createSlice({
     },
     setLatlng: (state, action) => {
       state.latlng = action.payload;
-      console.log(state.latlng);
+    },
+    setLatlngSignUp: (state, action) => {
+      state.latlngSignUp = action.payload;
     },
     logOut: (state) => {
       localStorage.removeItem("token");
@@ -96,7 +105,6 @@ export const userSlice = createSlice({
     },
     setUserNeighborHood: (state, action) => {
       state.neighborhood = action.payload;
-      console.log("state", state.neighborhood);
     },
   },
 });
@@ -108,5 +116,6 @@ export const {
   setLatlng,
   logOut,
   setUserNeighborHood,
+  setLatlngSignUp,
 } = userSlice.actions;
 export default userSlice.reducer;

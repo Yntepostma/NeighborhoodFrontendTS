@@ -9,10 +9,7 @@ export const ProfilePage = () => {
   console.log("user", user);
 
   return (
-    <div
-      style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
-      className="bg-center h-screen"
-    >
+    <div className=" bg-teal-100 bg-scroll">
       <div className="min-h-screen flex justify-left items-left py-10 ml-10">
         <div className="w-48 h-64 rounded-xl bg-white flex flex-col shadow">
           <img

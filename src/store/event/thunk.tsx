@@ -19,12 +19,11 @@ type newEvent = {
 export const getEvents =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const token = selectToken(getState());
-    console.log("here");
     const response = await axios.get(`${apiUrl}/events`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("response", response);
     dispatch(setEvents(response.data));
+    console.log("events", response.data);
   };
 
 export const deleteEvent =
@@ -34,7 +33,6 @@ export const deleteEvent =
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(getEvents());
-    console.log(response);
   };
 
 export const getCategories =
@@ -76,6 +74,19 @@ export const createEvent =
         headers: { Authorization: `Bearer ${token}` },
       }
     );
-    console.log("responnse from backend", response2);
     dispatch(getEvents());
+  };
+
+export const addAttendee =
+  (eventId: number) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const token = selectToken(getState());
+    const response = await axios.post(
+      `${apiUrl}/events/${eventId}`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log("response", response);
   };

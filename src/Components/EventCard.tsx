@@ -20,7 +20,7 @@ export const EventCard = ({ id, title, description, imageUrl }: EventProps) => {
   const user = useSelector(selectUser);
 
   return (
-    <div className="max-w-sm mb-5 mr-5 bg-white border ml-4 border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <div className="max-w-sm min-h-100 mb-5 mr-5 bg-white border ml-4 border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
       <img className="rounded-t-lg" src={imageUrl} alt={title} />
 
       <div className="p-5">
