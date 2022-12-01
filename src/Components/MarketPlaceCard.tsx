@@ -1,20 +1,24 @@
 import { NavLink } from "react-router-dom";
-import { deleteEvent } from "../store/event/thunk";
+import { deleteMarketPlace } from "../store/marketplace/thunk";
 import { useAppDispatch } from "../store/hooks";
 import { selectUser } from "../store/user/selectors";
 import { useSelector } from "react-redux";
 
-export type EventProps = {
+export type MarketPlaceProps = {
   title: string;
   description: string;
   imageUrl: string;
-  date: Date;
   latitude: number;
   longitude: number;
   id: number;
 };
 
-export const EventCard = ({ id, title, description, imageUrl }: EventProps) => {
+export const MarketPlaceCard = ({
+  id,
+  title,
+  description,
+  imageUrl,
+}: MarketPlaceProps) => {
   const dispatch = useAppDispatch();
 
   const user = useSelector(selectUser);
@@ -32,16 +36,16 @@ export const EventCard = ({ id, title, description, imageUrl }: EventProps) => {
           {description}
         </p>
         <NavLink
-          to={`/events/${id}`}
+          to={`/marketplace/${id}`}
           className="inline-flex items-center px-3 mr-2 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Get Details
         </NavLink>
         <button
-          onClick={() => dispatch(deleteEvent(id))}
+          onClick={() => dispatch(deleteMarketPlace(id))}
           className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Delete event
+          Delete item
         </button>
       </div>
     </div>

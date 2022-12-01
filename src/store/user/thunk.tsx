@@ -6,6 +6,7 @@ import { apiUrl } from "../../config";
 import { setNeighborHood } from "../neighborhood/slice";
 import { setUserNeighborHood } from "./slice";
 import { selectToken } from "./selectors";
+import { getMarketPlaces } from "../marketplace/thunk";
 import {
   loginSuccess,
   tokenStillValid,
@@ -102,6 +103,7 @@ export const getUserWithStoredToken =
       dispatch(setUserNeighborHood(response.data.neighborhood));
       dispatch(tokenStillValid({ user: response.data }));
       dispatch(getEvents());
+      dispatch(getMarketPlaces());
     } catch (error: any) {
       if (error.response) {
         console.log(error.response.message);

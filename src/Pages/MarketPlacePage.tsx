@@ -1,15 +1,16 @@
-import { getEvents } from "../store/event/thunk";
+import { getMarketPlaces } from "../store/marketplace/thunk";
 import { useAppDispatch } from "../store/hooks";
 import { useState, useEffect } from "react";
-import { createEvent, getCategories } from "../store/event/thunk";
+import { getCategories } from "../store/event/thunk";
+import { createMarketPlace } from "../store/marketplace/thunk";
 import { useSelector } from "react-redux";
-import { selectEvents, selectCategories } from "../store/event/selector";
+import { selectCategories } from "../store/event/selector";
+import { selectMarketPlaces } from "../store/marketplace/selector";
 import { FormEvent } from "react";
-import DatePicker from "react-date-picker";
-import { EventCard } from "../Components/EventCard";
+import { MarketPlaceCard } from "../Components";
 import image from "./images/background5.jpg";
 
-export const EventPage = () => {
+export const MarketPlacePage = () => {
   const categories = useSelector(selectCategories);
 
   const dispatch = useAppDispatch();
@@ -19,13 +20,12 @@ export const EventPage = () => {
   const [zipCode, setZipCode] = useState<string>("");
   const [street, setStreet] = useState<string>("");
   const [houseNumber, setHouseNumber] = useState<number | null>(null);
-  const [date, setDate] = useState<Date>(new Date());
   const [showForm, setShowForm] = useState<boolean>(false);
   const [category, setCategory] = useState<number>(0);
 
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(getEvents());
+    dispatch(getMarketPlaces());
   }, [dispatch]);
 
   console.log("category", category);
@@ -33,22 +33,21 @@ export const EventPage = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (houseNumber !== null) {
-      const newEvent = {
+      const newMarketPlace = {
         title,
         description,
         imageUrl,
         street,
         houseNumber,
         zipCode,
-        date,
         category,
       };
-      dispatch(createEvent(newEvent));
+      dispatch(createMarketPlace(newMarketPlace));
     }
   };
 
-  const events = useSelector(selectEvents);
-  console.log("events", events);
+  const marketplaces = useSelector(selectMarketPlaces);
+  console.log("marketplaces", marketplaces);
 
   return (
     <div className=" bg-teal-100 bg-scroll">
@@ -57,7 +56,7 @@ export const EventPage = () => {
           className="inline-flex items-center px-3 ml-2 mt-2 mb-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
           onClick={() => setShowForm(!showForm)}
         >
-          {!showForm ? "Add Event" : "hide Form"}
+          {!showForm ? "Add Item" : "hide Form"}
         </button>
         {!showForm ? (
           ""
@@ -65,17 +64,9 @@ export const EventPage = () => {
           <div>
             <div className="block p-6 ml-2 rounded-lg shadow-lg bg-white w-6/12 mb-6 content-center">
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
-                Add an event:
+                Add an item to Market Place:
               </h5>
               <div className="flex row">
-                <h3 className="mr-5">
-                  Date:{" "}
-                  <DatePicker
-                    className="absolute"
-                    onChange={setDate}
-                    value={date}
-                  />
-                </h3>
                 <h3 className="flex row">
                   <p>Select Category </p> {"   "}
                   <select
@@ -145,29 +136,28 @@ export const EventPage = () => {
                   type="submit"
                   className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                 >
-                  Add Event
+                  Add Item
                 </button>
               </form>
             </div>
           </div>
         )}
       </div>
-      {!events ? (
+      {!marketplaces ? (
         "Loading"
       ) : showForm ? (
         ""
       ) : (
         <div>
-          {events.map((item) => {
+          {marketplaces.map((item) => {
             return (
               <div className=" flex-row justify-items-start">
-                <EventCard
+                <MarketPlaceCard
                   key={item.id}
                   id={item.id}
                   title={item.title}
                   imageUrl={item.imageUrl}
                   description={item.description}
-                  date={item.date}
                   latitude={item.latitude}
                   longitude={item.longtitude}
                 />

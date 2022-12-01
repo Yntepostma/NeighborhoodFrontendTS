@@ -10,6 +10,8 @@ import {
   EventPage,
   DetailsEventPage,
   ProfilePage,
+  MarketPlacePage,
+  DetailsMarketPage,
 } from "./Pages";
 import { useEffect } from "react";
 import { useAppDispatch } from "./store/hooks";
@@ -34,6 +36,8 @@ function App() {
         <Route path="/events" element={<EventPage />} />
         <Route path="/events/:id" element={<DetailsEventPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/marketplace" element={<MarketPlacePage />} />
+        <Route path="/marketplace/:id" element={<DetailsMarketPage />} />
       </Routes>
     </div>
   );

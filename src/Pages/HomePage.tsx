@@ -1,5 +1,3 @@
-import axios from "axios";
-import { geoKey } from "../config";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectEvents } from "../store/event/selector";
@@ -8,6 +6,8 @@ import { useEffect, useState } from "react";
 import { getLatLong } from "../store/user/thunk";
 import { selectLatLong } from "../store/user/selectors";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { NavLink } from "react-router-dom";
+import { selectMarketPlaces } from "../store/marketplace/selector";
 
 import {
   selectToken,
@@ -22,6 +22,7 @@ export const HomePage = () => {
   const token = useSelector(selectToken);
   const [lat, setLat] = useState<number>(0);
   const [lon, setLon] = useState<number>(0);
+  const [toggle, setToggle] = useState<boolean>(false);
 
   useEffect(() => {
     if (!token) {
@@ -31,10 +32,10 @@ export const HomePage = () => {
 
   const neighborhood = useSelector(selectUserNeighborhood);
   const events = useSelector(selectEvents);
+  const marketplaces = useSelector(selectMarketPlaces);
   const localEvents = events?.filter((event) => {
     return event.neighborhoodId === neighborhood?.id;
   });
-  console.log("local", localEvents);
 
   useEffect(() => {
     if (neighborhood) {
@@ -78,21 +79,46 @@ export const HomePage = () => {
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {localEvents?.map((event) => (
-              <Marker
-                key={event.title}
-                position={[event.latitude, event.longtitude]}
-              >
-                <Popup>
-                  <img
-                    alt={event.title}
-                    style={{ width: "100px", borderRadius: "0.5em" }}
-                    src={event.imageUrl}
-                  />
-                  <p>{event.title}</p>
-                </Popup>
-              </Marker>
-            ))}
+
+            {!toggle
+              ? localEvents?.map((event) => (
+                  <Marker
+                    key={event.title}
+                    position={[event.latitude, event.longtitude]}
+                  >
+                    <Popup>
+                      <img
+                        alt={event.title}
+                        className="object-contain"
+                        src={event.imageUrl}
+                      />
+                      <NavLink to={`/events/${event.id}`}>
+                        <p>
+                          <strong>{event.title}</strong>
+                        </p>
+                      </NavLink>
+                    </Popup>
+                  </Marker>
+                ))
+              : marketplaces?.map((marketplace) => (
+                  <Marker
+                    key={marketplace.title}
+                    position={[marketplace.latitude, marketplace.longtitude]}
+                  >
+                    <Popup>
+                      <img
+                        alt={marketplace.title}
+                        className="object-contain"
+                        src={marketplace.imageUrl}
+                      />
+                      <NavLink to={`/marketplace/${marketplace.id}`}>
+                        <p>
+                          <strong>{marketplace.title}</strong>
+                        </p>
+                      </NavLink>
+                    </Popup>
+                  </Marker>
+                ))}
           </MapContainer>
         )}
 
@@ -115,6 +141,14 @@ export const HomePage = () => {
             <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
               {neighborhood?.neighborhood}
             </span>
+            <br></br>
+
+            <button
+              className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+              onClick={() => setToggle(!toggle)}
+            >
+              {!toggle ? "Show Market Place items" : "Show Events"}
+            </button>
           </div>
         </div>
       </div>

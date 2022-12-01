@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import neighborhoodReducer from "./neighborhood/slice";
 import userReducer from "./user/slice";
 import eventReducer from "./event/slice";
+import marketPlaceReducer from "./marketplace/slice";
 
 const store = configureStore({
   reducer: {
     neighborhood: neighborhoodReducer,
     user: userReducer,
     event: eventReducer,
+    marketplace: marketPlaceReducer,
   },
 });
 
