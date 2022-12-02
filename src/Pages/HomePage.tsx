@@ -14,7 +14,7 @@ import {
   selectArea,
   selectUserNeighborhood,
 } from "../store/user/selectors";
-import image from "./images/background5.jpg";
+import image from "./images/background6.jpg";
 
 export const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -52,15 +52,22 @@ export const HomePage = () => {
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
-      className="bg-center h-screen"
+      className="bg-center"
     >
       <div className="flex justify-around">
         {lat === 0 ? (
-          "loading"
+          <div className="flex justify-center items-center">
+            <div
+              className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </div>
+          </div>
         ) : (
           <MapContainer
             center={[lat, lon]}
-            zoom={15}
+            zoom={14}
             scrollWheelZoom={true}
             style={{
               borderRadius: "10px",
@@ -119,7 +126,7 @@ export const HomePage = () => {
           </MapContainer>
         )}
 
-        <div className="max-w-sm rounded bg-white overflow-hidden h-4/6 mt-20 shadow-lg">
+        <div className="max-w-sm rounded opacity-80 bg-white overflow-hidden h-4/6 mt-20 shadow-lg">
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">
               Welcome to Neighborhood!

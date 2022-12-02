@@ -7,7 +7,7 @@ import { selectEvents, selectCategories } from "../store/event/selector";
 import { FormEvent } from "react";
 import DatePicker from "react-date-picker";
 import { EventCard } from "../Components/EventCard";
-import image from "./images/background5.jpg";
+import image from "./images/background6.jpg";
 
 export const EventPage = () => {
   const categories = useSelector(selectCategories);
@@ -48,7 +48,10 @@ export const EventPage = () => {
   const events = useSelector(selectEvents);
 
   return (
-    <div className=" bg-teal-100 bg-scroll">
+    <div
+      style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
+      className="bg-center h-scroll"
+    >
       <div>
         <button
           className="inline-flex items-center px-3 ml-2 mt-2 mb-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
@@ -60,7 +63,7 @@ export const EventPage = () => {
           ""
         ) : (
           <div>
-            <div className="block p-6 ml-2 rounded-lg shadow-lg bg-white w-6/12 mb-6 content-center">
+            <div className="block p-6 ml-2 rounded-lg shadow-lg opacity-80 bg-white w-6/12 mb-6 content-center">
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                 Add an event:
               </h5>
@@ -154,10 +157,10 @@ export const EventPage = () => {
       ) : showForm ? (
         ""
       ) : (
-        <div style={{ display: "flex" }}>
+        <div>
           {events.map((item) => {
             return (
-              <div className=" flex-row justify-items-start">
+              <div>
                 <EventCard
                   key={item.id}
                   id={item.id}

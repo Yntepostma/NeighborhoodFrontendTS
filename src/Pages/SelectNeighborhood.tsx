@@ -9,7 +9,7 @@ import { getNeighborhood } from "../store/neighborhood/thunk";
 import { selectLatLongSignUp, selectToken } from "../store/user/selectors";
 import { selectNeighborhood } from "../store/neighborhood/selector";
 import { useAppDispatch } from "../store/hooks";
-import image from "./images/background5.jpg";
+import image from "./images/background6.jpg";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useSelector } from "react-redux";
 import { selectArea } from "../store/user/selectors";
@@ -69,14 +69,20 @@ export const SelectNeighborhood = () => {
       style={{
         backgroundImage: `url(${image}) `,
         backgroundSize: "cover",
-        opacity: "50%",
       }}
       className="h-screen bg-center"
     >
       <div className="flex justify-around">
         <div className="flex-wrap mt-6">
           {!lat ? (
-            "Loading"
+            <div className="flex justify-center items-center">
+              <div
+                className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+                role="status"
+              >
+                <span className="visually-hidden">Loading...</span>
+              </div>
+            </div>
           ) : (
             <MapContainer
               center={[lat, lon]}
@@ -102,7 +108,7 @@ export const SelectNeighborhood = () => {
         </div>
         <div className="flex-col mt-6">
           <div>
-            <div className="block p-6 rounded-lg shadow-lg bg-white w-4/6 mb-6 content-center">
+            <div className="block p-10 rounded-lg opacity-75 shadow-lg bg-white w-4/6 mb-6 content-center">
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                 Your current location is:
               </h5>
@@ -123,7 +129,7 @@ export const SelectNeighborhood = () => {
           </div>
 
           <div>
-            <div className="block p-6 rounded-lg shadow-lg bg-white w-4/6">
+            <div className="block p-6 rounded-lg shadow-lg opacity-80 bg-white w-4/6">
               <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                 Add neighborhood manually
               </h5>
