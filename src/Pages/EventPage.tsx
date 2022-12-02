@@ -42,6 +42,7 @@ export const EventPage = () => {
         category,
       };
       dispatch(createEvent(newEvent));
+      setShowForm(!showForm);
     }
   };
 
@@ -54,7 +55,7 @@ export const EventPage = () => {
     >
       <div>
         <button
-          className="inline-flex items-center px-3 ml-2 mt-2 mb-2 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+          className="inline-flex items-center px-3 ml-2 mt-2 mb-2 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           onClick={() => setShowForm(!showForm)}
         >
           {!showForm ? "Add Event" : "hide Form"}
@@ -143,7 +144,7 @@ export const EventPage = () => {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Add Event
                 </button>
@@ -170,6 +171,7 @@ export const EventPage = () => {
                   date={item.date}
                   latitude={item.latitude}
                   longitude={item.longtitude}
+                  categories={item.categories}
                 />
               </div>
             );

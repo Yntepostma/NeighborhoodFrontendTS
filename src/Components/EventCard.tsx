@@ -4,7 +4,9 @@ import { useAppDispatch } from "../store/hooks";
 import { selectUser } from "../store/user/selectors";
 import { useSelector } from "react-redux";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Category } from "../store/event/slice";
 import moment from "moment";
+import { getCategories } from "../store/marketplace/thunk";
 
 export type EventProps = {
   title: string;
@@ -14,6 +16,7 @@ export type EventProps = {
   latitude: number;
   longitude: number;
   id: number;
+  categories: Category[];
 };
 
 export const EventCard = ({
@@ -24,10 +27,9 @@ export const EventCard = ({
   date,
   longitude,
   latitude,
+  categories,
 }: EventProps) => {
   const dispatch = useAppDispatch();
-  console.log("lat", latitude);
-
   const user = useSelector(selectUser);
 
   return (
@@ -38,20 +40,28 @@ export const EventCard = ({
         alt={title}
       />
       <div className="flex flex-col justify-between  max-w-10 p-4 leading-normal">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        <h5 className="mb-2 text-2xl decoration-solid font-bold tracking-tight text-blue-900 dark:text-white">
           {title}
         </h5>
         <div>
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
             {description}
           </p>
-          <p>
-            <strong>{moment(date).format("MMM Do YY")}</strong>
-          </p>
-          <br></br>
 
+          {categories.map((cat) => {
+            return (
+              <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                {cat.name}
+              </span>
+            );
+          })}
+          <br></br>
+          <br></br>
+          <span className="ml-5">
+            <strong>{moment(date).format("MMM Do YY")}</strong>
+          </span>
           <NavLink to={`/events/${id}`}>
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button className="inline-flex items-center px-3 py-2 ml-10 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               Details
             </button>
           </NavLink>

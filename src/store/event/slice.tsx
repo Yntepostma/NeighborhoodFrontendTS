@@ -10,9 +10,10 @@ export type Event = {
   neighborhoodId: number;
   date: Date;
   id: number;
+  categories: Category[];
 };
 
-type Category = {
+export type Category = {
   id: number;
   name: string;
 };
