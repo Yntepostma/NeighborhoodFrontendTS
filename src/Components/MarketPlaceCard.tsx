@@ -28,48 +28,28 @@ export const MarketPlaceCard = ({
   const user = useSelector(selectUser);
 
   return (
-    <div className="flex flex-col items-center opacity-90 mb-5 ml-28 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      <img
-        className="object-fill h-44 ml-2 rounded-lg"
-        src={imageUrl}
-        alt={title}
-      />
-      <div className="flex flex-col justify-between  max-w-10 p-4 leading-normal">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {title}
-        </h5>
-        <div>
-          <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            {description}
-          </p>
+    <div className="p-10">
+      <div className="w-80 rounded overflow-hidden opacity-90 shadow-md">
+        <img className="w-80 h-64" src={imageUrl} alt="Mountain" />
+        <div className="px-6 bg-white py-4">
+          <div className="font-bold bg-white text-xl">{title}</div>
           <br></br>
-
-          <NavLink to={`/events/${id}`}>
-            <button className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          <NavLink to={`${id}`}>
+            <button className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
               Details
             </button>
           </NavLink>
         </div>
-      </div>
-
-      <div>
-        <MapContainer
-          center={[latitude, longitude]}
-          zoom={15}
-          scrollWheelZoom={true}
-          style={{
-            height: "20vw",
-            width: "25vw",
-            borderTopRightRadius: "10%",
-            borderBottomRightRadius: "10%",
-          }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={[latitude, longitude]}></Marker>
-        </MapContainer>
+        {/* <div className="px-6 pt-4 h-24 bg-white pb-2">
+          {categories.map((cat) => {
+            return (
+              <span className="inline-flex bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                {cat.name}
+              </span>
+            );
+          })}
+          <br></br>
+        </div> */}
       </div>
     </div>
   );

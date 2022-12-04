@@ -1,7 +1,7 @@
 import { selectUser } from "../store/user/selectors";
 import { useAppDispatch } from "../store/hooks";
 import { useSelector } from "react-redux";
-import image from "./images/background4.jpg";
+import image from "./images/background6.jpg";
 
 export const ProfilePage = () => {
   const dispatch = useAppDispatch();
@@ -9,7 +9,10 @@ export const ProfilePage = () => {
   console.log("user", user);
 
   return (
-    <div className=" bg-teal-100 bg-scroll">
+    <div
+      style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
+      className="bg-fixed"
+    >
       <div className="min-h-screen flex justify-left items-left py-10 ml-10">
         <div className="w-48 h-64 rounded-xl bg-white flex flex-col shadow">
           <img

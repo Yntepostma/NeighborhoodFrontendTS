@@ -23,7 +23,6 @@ export const getEvents =
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(setEvents(response.data));
-    console.log("events", response.data);
   };
 
 export const deleteEvent =

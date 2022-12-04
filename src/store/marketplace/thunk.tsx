@@ -25,11 +25,7 @@ export const getMarketPlaces =
     dispatch(setMarketPlaces(response.data));
   };
 
-export const getUser =
-  (id: number) => async (dispatch: AppDispatch, getState: () => RootState) => {
-    const response = await axios.get(`${apiUrl}/events/user`);
-    console.log("response", response);
-  };
+
 
 export const deleteMarketPlace =
   (id: number) => async (dispatch: AppDispatch, getState: () => RootState) => {

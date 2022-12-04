@@ -55,11 +55,12 @@ export const EventPage = () => {
     >
       <div>
         <button
-          className="inline-flex items-center px-3 ml-2 mt-2 mb-2 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           onClick={() => setShowForm(!showForm)}
         >
           {!showForm ? "Add Event" : "hide Form"}
         </button>
+
         {!showForm ? (
           ""
         ) : (
@@ -144,7 +145,7 @@ export const EventPage = () => {
                 </div>
                 <button
                   type="submit"
-                  className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="inline-block px-6 py-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                 >
                   Add Event
                 </button>
@@ -153,27 +154,28 @@ export const EventPage = () => {
           </div>
         )}
       </div>
+      <h1 className="text-5xl text-center font-bold text-teal-700 mt-0 mb-6">
+        Events
+      </h1>
       {!events ? (
         "Loading"
       ) : showForm ? (
         ""
       ) : (
-        <div>
+        <div className="flex flex-row flex-wrap justify-between">
           {events.map((item) => {
             return (
-              <div>
-                <EventCard
-                  key={item.id}
-                  id={item.id}
-                  title={item.title}
-                  imageUrl={item.imageUrl}
-                  description={item.description}
-                  date={item.date}
-                  latitude={item.latitude}
-                  longitude={item.longtitude}
-                  categories={item.categories}
-                />
-              </div>
+              <EventCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                imageUrl={item.imageUrl}
+                description={item.description}
+                date={item.date}
+                latitude={item.latitude}
+                longitude={item.longtitude}
+                categories={item.categories}
+              />
             );
           })}
         </div>
