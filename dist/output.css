@@ -1070,6 +1070,10 @@ video {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
+.bg-fixed {
+  background-attachment: fixed;
+}
+
 .bg-scroll {
   background-attachment: scroll;
 }
@@ -1100,6 +1104,10 @@ video {
 
 .object-cover {
   object-fit: cover;
+}
+
+.object-fill {
+  object-fit: fill;
 }
 
 .p-5 {

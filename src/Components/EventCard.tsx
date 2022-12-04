@@ -35,7 +35,7 @@ export const EventCard = ({
   return (
     <div className="flex flex-col items-center opacity-90 mb-5 ml-28 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
       <img
-        className="object-cover h-44 ml-2 rounded-lg"
+        className="object-fill h-44 ml-2 rounded-lg"
         src={imageUrl}
         alt={title}
       />

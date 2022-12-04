@@ -114,6 +114,7 @@ export const getUserWithStoredToken =
       const response = await axios.get(`${apiUrl}/auth/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
+      console.log("response refresh", response.data);
       dispatch(setUserNeighborHood(response.data.neighborhood));
       dispatch(tokenStillValid({ user: response.data }));
       dispatch(getEvents());

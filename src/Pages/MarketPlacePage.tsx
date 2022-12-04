@@ -52,7 +52,7 @@ export const MarketPlacePage = () => {
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
-      className="bg-center"
+      className="bg-fixed"
     >
       <div>
         <button

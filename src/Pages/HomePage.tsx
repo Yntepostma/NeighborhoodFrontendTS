@@ -52,7 +52,7 @@ export const HomePage = () => {
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
-      className="bg-center"
+      className="bg-fixed"
     >
       <div className="flex justify-around">
         {lat === 0 ? (
@@ -129,7 +129,7 @@ export const HomePage = () => {
         <div className="max-w-sm rounded opacity-80 bg-white overflow-hidden h-4/6 mt-20 shadow-lg">
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">
-              Welcome to Neighborhood!
+              Welcome to NeighborHood!
             </div>
             <p className="text-gray-700 text-base">
               Connect with your neighbors through events, the marketplace or the

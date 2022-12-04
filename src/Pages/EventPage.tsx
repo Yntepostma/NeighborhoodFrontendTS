@@ -51,7 +51,7 @@ export const EventPage = () => {
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
-      className="bg-center h-scroll"
+      className="bg-fixed"
     >
       <div>
         <button
