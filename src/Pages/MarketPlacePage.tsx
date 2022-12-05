@@ -28,8 +28,6 @@ export const MarketPlacePage = () => {
     dispatch(getMarketPlaces());
   }, [dispatch]);
 
-  console.log("category", category);
-
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     if (houseNumber !== null) {
@@ -47,7 +45,6 @@ export const MarketPlacePage = () => {
   };
 
   const marketplaces = useSelector(selectMarketPlaces);
-  console.log("marketplaces", marketplaces);
 
   return (
     <div

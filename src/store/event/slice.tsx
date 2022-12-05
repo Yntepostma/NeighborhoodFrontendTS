@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../user/slice";
 
 export type Event = {
   title: string;
@@ -11,6 +12,7 @@ export type Event = {
   date: Date;
   id: number;
   categories: Category[];
+  attendee: User[];
 };
 
 export type Category = {

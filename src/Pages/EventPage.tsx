@@ -47,6 +47,7 @@ export const EventPage = () => {
   };
 
   const events = useSelector(selectEvents);
+  console.log("events", events);
 
   return (
     <div

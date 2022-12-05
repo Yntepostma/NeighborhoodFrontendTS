@@ -21,7 +21,7 @@ export const DetailsEventPage = () => {
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
       className="bg-fixed h-screen"
     >
-      <div className="inline-flex flex-col mt-28 items-center opacity-90 mb-5 ml-36 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <div className="inline-flex flex-col mt-28 items-center opacity-90 mb-1 ml-36 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img
           className="object-fill h-44 ml-2 rounded-lg"
           src={event?.imageUrl}
@@ -54,7 +54,6 @@ export const DetailsEventPage = () => {
             >
               Join
             </button>
-            <p className="ml-5">Attendees: </p>
           </div>
         </div>
         {!event ? (
@@ -99,6 +98,33 @@ export const DetailsEventPage = () => {
           </div>
         )}
       </div>
+
+      {event?.attendee.length > 0 ? (
+        <div className="flex-col items-center opacity-90 ml-36 w-64 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+          <p className="ml-2 text-teal-700">
+            <strong>Attendees: </strong>
+          </p>
+          {event?.attendee.map((att) => {
+            return (
+              <div>
+                <img
+                  className="h-10 w-10 inline-block"
+                  src={att.profilePicture}
+                  alt="profilepicture"
+                />
+                <strong>
+                  {" "}
+                  <span className="ml-5" key={att.id}>
+                    {att.userName}
+                  </span>
+                </strong>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
