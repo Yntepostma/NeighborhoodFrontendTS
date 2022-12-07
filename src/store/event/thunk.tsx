@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from "..";
 import { selectToken } from "../user/selectors";
 import { setEvents, setCategories } from "./slice";
 import { geoKey } from "../../config";
+import { showMessageWithTimeout } from "../appState/thunk";
 
 type newEvent = {
   street: string;
@@ -32,6 +33,7 @@ export const deleteEvent =
       headers: { Authorization: `Bearer ${token}` },
     });
     dispatch(getEvents());
+    dispatch(showMessageWithTimeout("success", true, "Event deleted", 2000));
   };
 
 export const getCategories =
@@ -74,6 +76,7 @@ export const createEvent =
       }
     );
     dispatch(getEvents());
+    dispatch(showMessageWithTimeout("success", true, "Event created", 2000));
   };
 
 export const addAttendee =
@@ -87,5 +90,7 @@ export const addAttendee =
         headers: { Authorization: `Bearer ${token}` },
       }
     );
+    dispatch(getEvents());
+    dispatch(showMessageWithTimeout("success", true, "Joined Event", 2000));
     console.log("response", response);
   };

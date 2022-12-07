@@ -99,7 +99,9 @@ export const DetailsEventPage = () => {
         )}
       </div>
 
-      {event?.attendee.length > 0 ? (
+      {!event ? (
+        ""
+      ) : event.attendee.length > 0 ? (
         <div className="flex-col items-center opacity-90 ml-36 w-64 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
           <p className="ml-2 text-teal-700">
             <strong>Attendees: </strong>

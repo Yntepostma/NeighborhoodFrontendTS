@@ -3,6 +3,7 @@ import neighborhoodReducer from "./neighborhood/slice";
 import userReducer from "./user/slice";
 import eventReducer from "./event/slice";
 import marketPlaceReducer from "./marketplace/slice";
+import appStateReducer from "./appState/slice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     user: userReducer,
     event: eventReducer,
     marketplace: marketPlaceReducer,
+    appState: appStateReducer,
   },
 });
 

@@ -16,7 +16,7 @@ import {
 import { useEffect } from "react";
 import { useAppDispatch } from "./store/hooks";
 import { Routes, Route } from "react-router-dom";
-import { NavBar } from "./Components";
+import { NavBar, MessageBox } from "./Components";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -28,6 +28,7 @@ function App() {
   return (
     <div className="App">
       <NavBar></NavBar>
+      <MessageBox></MessageBox>
       <Routes>
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
