@@ -9,6 +9,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { NavLink } from "react-router-dom";
 import { AppDispatch, RootState } from "../store";
 import { apiUrl } from "../config";
+import { createResponse } from "../store/marketplace/thunk";
 
 export const DetailsMarketPage = () => {
   const getUser =
@@ -23,6 +24,7 @@ export const DetailsMarketPage = () => {
   const intId: number = parseInt(id!);
 
   const [toggle, setToggle] = useState<boolean>(false);
+  const [message, setMessage] = useState<string>("");
   const [userEmail, setUserEmail] = useState<string>("");
 
   const dispatch = useAppDispatch();
@@ -35,7 +37,7 @@ export const DetailsMarketPage = () => {
     }
   }, [marketplace]);
 
-  console.log("marketplace", marketplace);
+  const sendNewMessage = () => {};
 
   return (
     <div
@@ -49,7 +51,7 @@ export const DetailsMarketPage = () => {
           alt={marketplace?.title}
         />
         <div className="flex flex-col justify-between  max-w-10 p-4 leading-normal">
-          <h5 className="mb-2 text-2xl decoration-solid font-bold tracking-tight text-blue-900 dark:text-white">
+          <h5 className="mb-2 text-2xl decoration-solid font-bold tracking-tight text-teal-700 dark:text-white">
             {marketplace?.title}
           </h5>
           <div>
@@ -66,8 +68,11 @@ export const DetailsMarketPage = () => {
             })} */}
             <br></br>
             <br></br>
-            <button className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
-              Contact
+            <button
+              onClick={() => setToggle(!toggle)}
+              className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+            >
+              Respond
             </button>
             <button className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
               Chat
@@ -118,6 +123,48 @@ export const DetailsMarketPage = () => {
           </div>
         )}
       </div>
+      {toggle ? (
+        <div className="block p-2 ml-36 rounded-lg text-teal-700 shadow-lg  bg-white w-6/12 mb-6 content-center">
+          <strong>Leave a Message:</strong>
+          <br></br>
+
+          <input
+            type="text"
+            className="min-w-full h-12"
+            placeholder="Your message"
+            value={message}
+            onChange={(e: any) => setMessage(e.target.value)}
+          />
+          <button
+            onClick={() => {
+              dispatch(createResponse(intId, message));
+              setMessage("");
+            }}
+            className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+          >
+            send
+          </button>
+        </div>
+      ) : !marketplace ? (
+        ""
+      ) : marketplace.responses.length > 0 ? (
+        <div className="flex-col items-center opacity-90 ml-36 w-64 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+          <p className="ml-2 text-teal-700">
+            <strong>Responses: </strong>
+          </p>
+          {marketplace.responses.map((res) => {
+            return (
+              <div>
+                <span className="ml-5" key={res.id}>
+                  {res.response}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

@@ -45,6 +45,7 @@ export const MarketPlacePage = () => {
   };
 
   const marketplaces = useSelector(selectMarketPlaces);
+  console.log("marketplaces", marketplaces);
 
   return (
     <div

@@ -15,17 +15,29 @@ type newMarketPlace = {
   category: number;
 };
 
+export const createResponse =
+  (id: number, message: string) =>
+  async (dispatch: AppDispatch, getState: () => RootState) => {
+    const token = selectToken(getState());
+    const response = await axios.post(
+      `${apiUrl}/marketplace/${id}/response`,
+      { message },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    dispatch(getMarketPlaces());
+    console.log("response", response.data);
+  };
+
 export const getMarketPlaces =
   () => async (dispatch: AppDispatch, getState: () => RootState) => {
     const token = selectToken(getState());
     const response = await axios.get(`${apiUrl}/marketplace`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    console.log("response", response);
     dispatch(setMarketPlaces(response.data));
   };
-
-
 
 export const deleteMarketPlace =
   (id: number) => async (dispatch: AppDispatch, getState: () => RootState) => {

@@ -13,7 +13,10 @@ export const MessageBox = () => {
 
   return (
     <div className="items-center bg-teal-700 opacity:80 border rounded-lg shadow-md md:flex-row hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-      <p className="text-white">{message.text}</p>
+      <br></br>
+      <p className="text-white text-center">
+        <strong>{message.text}</strong>
+      </p>
       <br></br>
       <p onClick={() => dispatch(clearMessage())}></p>
     </div>
