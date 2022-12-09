@@ -1,4 +1,5 @@
 import { RootState } from "..";
+import { Category } from "./slice";
 
 export const selectEvents = (ReduxState: RootState) => ReduxState.event.events;
 

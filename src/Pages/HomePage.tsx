@@ -8,6 +8,7 @@ import { selectLatLong } from "../store/user/selectors";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { NavLink } from "react-router-dom";
 import { selectMarketPlaces } from "../store/marketplace/selector";
+import MapController from "../Components/MapController";
 
 import {
   selectToken,
@@ -41,6 +42,7 @@ export const HomePage = () => {
   }, [dispatch, neighborhood]);
 
   const latLong = useSelector(selectLatLong);
+  console.log("LatLong", latLong);
 
   useEffect(() => {
     if (latLong) {
@@ -101,7 +103,7 @@ export const HomePage = () => {
                     key={event.title}
                     position={[event.latitude, event.longtitude]}
                   >
-                    <Popup>
+                    <Popup className="h-8">
                       <img
                         alt={event.title}
                         className="object-contain"
@@ -134,6 +136,7 @@ export const HomePage = () => {
                     </Popup>
                   </Marker>
                 ))}
+            <MapController lat={lat} lon={lon} />
           </MapContainer>
         )}
 
