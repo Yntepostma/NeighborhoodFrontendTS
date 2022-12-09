@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { User } from "../user/slice";
 
 type Response = {
   id: number;
@@ -17,6 +18,7 @@ export type MarketPlace = {
   neighborhoodId: number;
   id: number;
   responses: Response[];
+  user: User;
 };
 
 type Category = {

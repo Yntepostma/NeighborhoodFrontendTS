@@ -29,6 +29,7 @@ export const DetailsMarketPage = () => {
 
   const dispatch = useAppDispatch();
   const marketplace = useSelector(selectMarketPlaceById(intId));
+  const userName = marketplace?.user.userName;
   console.log("marketplace", marketplace);
 
   useEffect(() => {
@@ -148,13 +149,17 @@ export const DetailsMarketPage = () => {
       ) : !marketplace ? (
         ""
       ) : marketplace.responses.length > 0 ? (
-        <div className="flex-col items-center opacity-90 ml-36 w-64 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div className="flex-col items-center opacity-90 ml-36 w-6/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
           <p className="ml-2 text-teal-700">
-            <strong>Responses: </strong>
+            <strong className="text-teal-700">Responses: </strong>
           </p>
           {marketplace.responses.map((res) => {
             return (
               <div>
+                <span className="ml-2">
+                  <strong>{userName}</strong>
+                </span>
+                {""}
                 <span className="ml-5" key={res.id}>
                   {res.response}
                 </span>

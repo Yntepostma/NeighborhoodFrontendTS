@@ -8,22 +8,22 @@ export const ChatComponent = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
-  useEffect(() => {
-    if (!messages || messages.length === 0) {
-      socket.emit("getPreviousMessages");
-    }
-    socket.on("receivePreviousMessages", (oldMessages) => {
-      const newMessages = [];
-      oldMessages.map((i) => {
-        newMessages.push(i);
-      });
-      setMessages(newMessages);
-    });
-    socket.on("receiveMessage", (name, message) => {
-      const newMessage = { name, message };
-      setMessages([...messages, newMessage]);
-    });
-  }, [messages]);
+  // useEffect(() => {
+  //   if (!messages || messages.length === 0) {
+  //     socket.emit("getPreviousMessages");
+  //   }
+  //   socket.on("receivePreviousMessages", (oldMessages) => {
+  //     const newMessages = [];
+  //     oldMessages.map((i) => {
+  //       newMessages.push(i);
+  //     });
+  //     setMessages(newMessages);
+  //   });
+  //   socket.on("receiveMessage", (name, message) => {
+  //     const newMessage = { name, message };
+  //     setMessages([...messages, newMessage]);
+  //   });
+  // }, [messages]);
 
   return <div></div>;
 };

@@ -10,6 +10,7 @@ export type User = {
   profilePicture?: string;
   id: number;
   neighborhoodId: number;
+  neighborhood: Neighborhood;
 };
 
 type Token = string | null;

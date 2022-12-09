@@ -14,7 +14,7 @@ export const ProfilePage = () => {
       className="bg-fixed"
     >
       <div className="min-h-screen flex justify-left items-left py-10 ml-10">
-        <div className="w-48 h-64 rounded-xl bg-white flex flex-col shadow">
+        <div className="w-64 h-64 rounded-xl bg-white flex flex-col shadow">
           <img
             className="w-auto rounded-t-xl"
             src={user?.profilePicture}
@@ -25,11 +25,13 @@ export const ProfilePage = () => {
             <span className="text-s">
               Name: {user?.firstName} {""} {user?.lastName}
             </span>
-            <span className="text-s">Neighborhood:</span>
-            <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            <span className="text-s">
+              Neighborhood:{user?.neighborhood.neighborhood}
+            </span>
+            <button className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
               Change profile picture
             </button>
-            <button className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-green-700 rounded-lg hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+            <button className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
               Change profile settings
             </button>
           </div>

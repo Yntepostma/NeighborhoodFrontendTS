@@ -7,6 +7,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { NavLink } from "react-router-dom";
 import { addAttendee } from "../store/event/thunk";
 import moment from "moment";
+import { FacebookShareButton } from "react-share";
 
 export const DetailsEventPage = () => {
   const { id } = useParams();
@@ -14,7 +15,6 @@ export const DetailsEventPage = () => {
 
   const dispatch = useAppDispatch();
   const event = useSelector(selectEventById(intId));
-  console.log(event);
 
   return (
     <div
