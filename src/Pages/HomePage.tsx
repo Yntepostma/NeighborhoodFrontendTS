@@ -139,7 +139,7 @@ export const HomePage = () => {
 
         <div className="max-w-sm rounded opacity-80 bg-white overflow-hidden h-4/6 mt-20 shadow-lg">
           <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">
+            <div className="font-bold text-xl text-teal-700 mb-2">
               Welcome to NeighborHood!
             </div>
             <p className="text-gray-700 text-base">

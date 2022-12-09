@@ -6,6 +6,7 @@ type Response = {
   response: string;
   userId: number;
   neighborhoodId: number;
+  user: User;
 };
 
 export type MarketPlace = {

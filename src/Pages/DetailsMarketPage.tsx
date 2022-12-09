@@ -10,16 +10,18 @@ import { NavLink } from "react-router-dom";
 import { AppDispatch, RootState } from "../store";
 import { apiUrl } from "../config";
 import { createResponse } from "../store/marketplace/thunk";
+import {
+  FacebookShareButton,
+  WhatsappShareButton,
+  EmailShareButton,
+} from "react-share";
+import {
+  AiFillFacebook,
+  AiOutlineWhatsApp,
+  AiOutlineMail,
+} from "react-icons/ai";
 
 export const DetailsMarketPage = () => {
-  const getUser =
-    (id: number) =>
-    async (dispatch: AppDispatch, getState: () => RootState) => {
-      console.log("Hello");
-      const response = await axios.get(`${apiUrl}/marketplaces/user/${id}`);
-      console.log("response user", response.data.emailAddress);
-    };
-
   const { id } = useParams();
   const intId: number = parseInt(id!);
 
@@ -29,25 +31,17 @@ export const DetailsMarketPage = () => {
 
   const dispatch = useAppDispatch();
   const marketplace = useSelector(selectMarketPlaceById(intId));
-  const userName = marketplace?.user.userName;
+  const responses = marketplace?.responses;
   console.log("marketplace", marketplace);
-
-  useEffect(() => {
-    if (marketplace) {
-      dispatch(getUser(marketplace.userId));
-    }
-  }, [marketplace]);
-
-  const sendNewMessage = () => {};
 
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
       className="bg-fixed h-screen"
     >
-      <div className="inline-flex flex-col mt-28 items-center opacity-90 mb-5 ml-36 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <div className="inline-flex flex-col mt-20 items-center opacity-90 mb-5 ml-36 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img
-          className="object-fill h-44 ml-2 rounded-lg"
+          className="w-52 h-44 ml-2"
           src={marketplace?.imageUrl}
           alt={marketplace?.title}
         />
@@ -68,16 +62,45 @@ export const DetailsMarketPage = () => {
               );
             })} */}
             <br></br>
-            <br></br>
+
             <button
               onClick={() => setToggle(!toggle)}
-              className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+              className="inline-block px-6 py-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
             >
               Respond
             </button>
-            <button className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+            <button className="inline-block px-6 py-2  ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
               Chat
             </button>
+          </div>
+          <div className="flex-row mt-2 ml-2">
+            <FacebookShareButton
+              url={`http://localhost:3000/marketplace/${id}`}
+              title={marketplace?.title}
+            >
+              <AiFillFacebook
+                style={{ color: "blue", margin: "0 4px" }}
+                size={19}
+              />
+            </FacebookShareButton>
+            <WhatsappShareButton
+              url={`http://localhost:3000/marketplace/${id}`}
+              title={marketplace?.title}
+            >
+              <AiOutlineWhatsApp
+                style={{ color: "green", margin: "0 4px" }}
+                size={19}
+              />
+            </WhatsappShareButton>
+            <EmailShareButton
+              url={`http://localhost:3000/marketplace/${id}`}
+              title={marketplace?.title}
+            >
+              <AiOutlineMail
+                style={{ color: "black", margin: "0 4px" }}
+                size={19}
+              />
+            </EmailShareButton>
           </div>
         </div>
         {!marketplace ? (
@@ -140,6 +163,7 @@ export const DetailsMarketPage = () => {
             onClick={() => {
               dispatch(createResponse(intId, message));
               setMessage("");
+              setToggle(!toggle);
             }}
             className="inline-block px-6 py-2 mt-2 ml-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           >
@@ -149,15 +173,22 @@ export const DetailsMarketPage = () => {
       ) : !marketplace ? (
         ""
       ) : marketplace.responses.length > 0 ? (
-        <div className="flex-col items-center opacity-90 ml-36 w-6/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-          <p className="ml-2 text-teal-700">
-            <strong className="text-teal-700">Responses: </strong>
+        <div>
+          <p className="ml-36 text-black">
+            <strong className="text-black">Responses: </strong>
           </p>
           {marketplace.responses.map((res) => {
             return (
-              <div>
-                <span className="ml-2">
-                  <strong>{userName}</strong>
+              <div className="flex-col items-center mb-2 opacity-90 ml-36 w-6/12 bg-white border rounded-full shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                <span className="">
+                  <img
+                    className="h-10 w-10 rounded-full inline-block"
+                    src={res.user.profilePicture}
+                    alt="profilepicture"
+                  />
+                  <strong className="text-teal-700 ml-2">
+                    {res.user.userName}
+                  </strong>
                 </span>
                 {""}
                 <span className="ml-5" key={res.id}>

@@ -13,6 +13,7 @@ export type Event = {
   id: number;
   categories: Category[];
   attendee: User[];
+  owner: User;
 };
 
 export type Category = {

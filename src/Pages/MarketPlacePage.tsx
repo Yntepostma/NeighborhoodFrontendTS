@@ -153,7 +153,7 @@ export const MarketPlacePage = () => {
       ) : showForm ? (
         ""
       ) : (
-        <div className="flex flex-row flex-wrap justify-between">
+        <div className="flex flex-row flex-wrap justify-left">
           {marketplaces.map((item) => {
             return (
               <div>

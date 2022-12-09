@@ -62,6 +62,13 @@ const initialState: State = {
     profilePicture: "",
     id: 0,
     neighborhoodId: 0,
+    neighborhood: {
+      id: 0,
+      postal: "",
+      council: "",
+      neighborhood: "",
+      area: "",
+    },
   },
   token: localStorage.getItem("token"),
   currentNeighborhood: { postal: "", council: "", neighborhood: "", area: "" },
@@ -105,6 +112,13 @@ export const userSlice = createSlice({
         profilePicture: "",
         id: 0,
         neighborhoodId: 0,
+        neighborhood: {
+          id: 0,
+          postal: "",
+          council: "",
+          neighborhood: "",
+          area: "",
+        },
       };
     },
     setUserNeighborHood: (state, action) => {

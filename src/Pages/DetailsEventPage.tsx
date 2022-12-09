@@ -7,7 +7,16 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { NavLink } from "react-router-dom";
 import { addAttendee } from "../store/event/thunk";
 import moment from "moment";
-import { FacebookShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  WhatsappShareButton,
+  EmailShareButton,
+} from "react-share";
+import {
+  AiFillFacebook,
+  AiOutlineWhatsApp,
+  AiOutlineMail,
+} from "react-icons/ai";
 
 export const DetailsEventPage = () => {
   const { id } = useParams();
@@ -15,15 +24,16 @@ export const DetailsEventPage = () => {
 
   const dispatch = useAppDispatch();
   const event = useSelector(selectEventById(intId));
+  console.log("event", event);
 
   return (
     <div
       style={{ backgroundImage: `url(${image}) `, backgroundSize: "cover" }}
       className="bg-fixed h-screen"
     >
-      <div className="inline-flex flex-col mt-28 items-center opacity-90 mb-1 ml-36 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+      <div className="inline-flex flex-col mt-20 items-center opacity-90 mb-1 ml-36 w-9/12 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img
-          className="object-fill h-44 ml-2 rounded-lg"
+          className="w-52 h-44 ml-2"
           src={event?.imageUrl}
           alt={event?.title}
         />
@@ -31,6 +41,9 @@ export const DetailsEventPage = () => {
           <h5 className="mb-2 text-2xl decoration-solid font-bold tracking-tight text-teal-700 dark:text-white">
             {event?.title}
           </h5>
+          <p className="">
+            <strong>{moment(event?.date).format("MMM Do YY")}</strong>
+          </p>
           <div>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
               {event?.description}
@@ -43,17 +56,62 @@ export const DetailsEventPage = () => {
                 </span>
               );
             })}
+
             <br></br>
-            <br></br>
-            <span className="ml-5">
-              <strong>{moment(event?.date).format("MMM Do YY")}</strong>
-            </span>
-            <button
-              onClick={() => dispatch(addAttendee(event!.id))}
-              className="inline-block px-6 ml-24 py-2 mt-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-            >
-              Join
-            </button>
+            <div className="flex justify-between">
+              <div className="inline-flex justify-start">
+                <button
+                  onClick={() => dispatch(addAttendee(event!.id))}
+                  className="inline-flex mr-2 px-6 py-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                >
+                  Join
+                </button>
+                <button
+                  onClick={() => dispatch(addAttendee(event!.id))}
+                  className="inline-flex px-6 py-2 border-2 border-teal-600 text-teal-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                >
+                  Contact
+                </button>
+              </div>
+            </div>
+            <div className="flex-row mt-2 ml-2">
+              <FacebookShareButton
+                url={`http://localhost:3000/events/${id}`}
+                title={event?.title}
+              >
+                <AiFillFacebook
+                  style={{ color: "blue", margin: "0 4px" }}
+                  size={19}
+                />
+              </FacebookShareButton>
+              <WhatsappShareButton
+                url={`http://localhost:3000/events/${id}`}
+                title={event?.title}
+              >
+                <AiOutlineWhatsApp
+                  style={{ color: "green", margin: "0 4px" }}
+                  size={19}
+                />
+              </WhatsappShareButton>
+              <EmailShareButton
+                url={`http://localhost:3000/events/${id}`}
+                title={event?.title}
+              >
+                <AiOutlineMail
+                  style={{ color: "black", margin: "0 4px" }}
+                  size={19}
+                />
+              </EmailShareButton>
+            </div>
+
+            {/* <div className="inline-flex items-center">
+                <span>{event?.owner.userName}</span>
+                <img
+                  className="h-8 w-8 ml-2 rounded-full inline-block"
+                  src={event?.owner.profilePicture}
+                  alt="event"
+                />
+              </div> */}
           </div>
         </div>
         {!event ? (
@@ -83,7 +141,7 @@ export const DetailsEventPage = () => {
               zoom={15}
               scrollWheelZoom={true}
               style={{
-                height: "20vw",
+                height: "21vw",
                 width: "25vw",
                 borderTopRightRadius: "10%",
                 borderBottomRightRadius: "10%",
@@ -98,25 +156,24 @@ export const DetailsEventPage = () => {
           </div>
         )}
       </div>
-
       {!event ? (
         ""
       ) : event.attendee.length > 0 ? (
-        <div className="flex-col items-center opacity-90 ml-36 w-64 bg-white border rounded-lg shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-          <p className="ml-2 text-teal-700">
+        <div>
+          <p className="ml-36 text-black">
             <strong>Attendees: </strong>
           </p>
           {event?.attendee.map((att) => {
             return (
-              <div>
+              <div className="flex-col items-center opacity-90 mb-2 ml-36 w-64 bg-white border  rounded-full shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <img
-                  className="h-10 w-10 inline-block"
+                  className="h-10 w-10 rounded-full inline-block"
                   src={att.profilePicture}
                   alt="profilepicture"
                 />
                 <strong>
                   {" "}
-                  <span className="ml-5" key={att.id}>
+                  <span className="ml-5 text-teal-700" key={att.id}>
                     {att.userName}
                   </span>
                 </strong>

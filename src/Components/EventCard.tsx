@@ -33,8 +33,8 @@ export const EventCard = ({
   const user = useSelector(selectUser);
 
   return (
-    <div className="p-10">
-      <div className="w-80 rounded overflow-hidden opacity-90 shadow-md">
+    <div className="p-10 ">
+      <div className="w-80 rounded overflow-hidden opacity-90 ">
         <img className="w-80 h-64" src={imageUrl} alt="Mountain" />
         <div className="px-6 bg-white py-4">
           <div className="font-bold bg-white text-xl">{title}</div>
