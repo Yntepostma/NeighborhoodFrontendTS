@@ -179,7 +179,7 @@ export const DetailsMarketPage = () => {
           </p>
           {marketplace.responses.map((res) => {
             return (
-              <div className="flex-col items-center mb-2 opacity-90 ml-36 w-6/12 bg-white border rounded-full shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <div className="flex-col items-center mb-2 opacity-90 ml-36 w-9/12 bg-white border rounded-full shadow-md md:flex-row justify-between  hover:bg-gray-100 hover:opacity:75 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                 <span className="">
                   <img
                     className="h-10 w-10 rounded-full inline-block"

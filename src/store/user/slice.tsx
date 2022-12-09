@@ -120,6 +120,16 @@ export const userSlice = createSlice({
           area: "",
         },
       };
+      state.neighborhood = {
+        id: 0,
+        postal: "",
+        council: "",
+        neighborhood: "",
+        area: "",
+      };
+
+      state.latlng = { lat: 0, lng: 0 };
+      state.latlngSignUp = { lat: 0, lng: 0 };
     },
     setUserNeighborHood: (state, action) => {
       state.neighborhood = action.payload;

@@ -8,7 +8,6 @@ import { selectLatLong } from "../store/user/selectors";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { NavLink } from "react-router-dom";
 import { selectMarketPlaces } from "../store/marketplace/selector";
-import MapController from "../Components/MapController";
 
 import {
   selectToken,
@@ -80,7 +79,7 @@ export const HomePage = () => {
         ) : (
           <MapContainer
             center={[lat, lon]}
-            zoom={14}
+            zoom={15}
             scrollWheelZoom={true}
             style={{
               borderRadius: "10px",
@@ -136,7 +135,6 @@ export const HomePage = () => {
                     </Popup>
                   </Marker>
                 ))}
-            <MapController lat={lat} lon={lon} />
           </MapContainer>
         )}
 
