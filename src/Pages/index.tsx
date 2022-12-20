@@ -7,3 +7,4 @@ export * from "./DetailsEventPage";
 export * from "./ProfilePage";
 export * from "./MarketPlacePage";
 export * from "./DetailsMarketPage";
+export * from "./ChatPage"

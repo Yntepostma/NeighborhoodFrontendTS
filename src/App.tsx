@@ -12,6 +12,7 @@ import {
   ProfilePage,
   MarketPlacePage,
   DetailsMarketPage,
+  ChatPage,
 } from "./Pages";
 import { useEffect } from "react";
 import { useAppDispatch } from "./store/hooks";
@@ -39,6 +40,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/marketplace" element={<MarketPlacePage />} />
         <Route path="/marketplace/:id" element={<DetailsMarketPage />} />
+        <Route path="/chat" element={<ChatPage/>}/>
       </Routes>
     </div>
   );
