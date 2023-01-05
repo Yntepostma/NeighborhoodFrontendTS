@@ -5,3 +5,4 @@ export * from "./MarketPlaceCard";
 export * from "./MessageBox";
 export * from "./ChatBar"
 export * from "./ChatFooter"
+export * from "./ChatBody"

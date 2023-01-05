@@ -1,4 +1,15 @@
-export const ChatBar = () => {
+type user = {
+  userName: string,
+  socketID: string
+}
+
+type UserProps = {
+  users: user[]
+}
+
+export const ChatBar = ({users}:UserProps) => {
+
+const filteredUsers = users.filter(user => user.userName !== "")
 
     return (
 
@@ -7,12 +18,15 @@ export const ChatBar = () => {
   
         <div>
           <h4 className="chat__header">ACTIVE USERS</h4>
-          <div className="chat__users">
-            <p>User 1</p>
-            <p>User 2</p>
-            <p>User 3</p>
-            <p>User 4</p>
-          </div>
+          <ul>
+            {/*@ts-ignore*/}
+            {filteredUsers.map((user) => {
+              return (
+              <li key={user.socketID}>{user.userName}</li>
+              )
+
+            })}
+          </ul>
         </div>
       </div>
     );
